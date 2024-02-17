@@ -4,7 +4,7 @@ function HomePage() {
   return (
     <>
       <Hero />
-      {/*<FeaturedPosts />*/}
+      <FeaturedPosts />
     </>
   );
 }
