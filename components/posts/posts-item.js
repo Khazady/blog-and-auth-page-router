@@ -10,12 +10,13 @@ export default function PostItem(props) {
     year: "numeric",
   });
   const imagePath = `/images/posts/${slug}/${image}`;
+  const linkPath = `/posts/${slug}`;
 
   return (
     <li className={styles.post} key={slug}>
-      <Link href={`/posts/${slug}`}>
+      <Link href={linkPath}>
         <div className={styles.image}>
-          <Image src={imagePath} alt={title} width={300} height={200} />
+          <Image src={imagePath} alt={title} width={300} height={200} layout='responsive' />
         </div>
         <div className={styles.content}>
           <h3>{title}</h3>
