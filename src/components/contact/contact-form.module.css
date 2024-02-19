@@ -65,6 +65,13 @@
   border-color: var(--color-primary-500);
 }
 
+.form button:disabled {
+  background-color: var(--color-grey-300);
+  border: 1px solid var(--color-grey-300);
+  color: var(--color-grey-50);
+  cursor: not-allowed;
+}
+
 @media (min-width: 768px) {
   .contact h1 {
     font-size: var(--size-16);
