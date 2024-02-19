@@ -19,6 +19,8 @@ export default function PostContent(props: PropsType) {
         components={{
           img: (image) => (
             <Image
+              priority
+              className={styles.image}
               src={`/images/posts/${post.slug}/${image.src}`}
               alt={image.alt || "Additional image in Post body"}
               width={600}
