@@ -8,15 +8,27 @@ isFeatured: true
 
 # Next.js Framework
 
-Next.js is a React framework that enables functionality such as server-side rendering and generating static websites for React-based web applications. It is often used for building fast, scalable, and SEO-friendly web applications.
+NextJS is a **framework for ReactJS**.
 
-## Features
+Wait a second ... a "framework" for React? Isn't React itself already a framework for JavaScript?
 
-- **Server-side rendering (SSR):** Next.js allows rendering React components on the server-side, providing faster page load times and better SEO performance.
-- **Static site generation (SSG):** Next.js can pre-render pages at build time, resulting in static HTML files that can be served directly from a CDN, enhancing performance and reducing server load.
-- **Automatic code splitting:** Next.js automatically splits JavaScript code into smaller chunks, allowing only the necessary code to be loaded for each page, improving load times.
-- **Hot module replacement (HMR):** Next.js supports HMR, enabling developers to see changes in real-time without refreshing the browser during development.
-- **API routes:** Next.js allows defining API routes within the same project, simplifying backend integration and making it easy to create serverless functions.
-- **File-based routing:** Next.js uses a file-based routing system, where each page corresponds to a React component file, streamlining the development process.
-- **TypeScript support:** Next.js has built-in support for TypeScript, enabling developers to write type-safe code and catch errors early in the development process.
-- **CSS-in-JS support:** Next.js supports various CSS-in-JS solutions, such as styled-components and Emotion, for styling React components.
+Well ... first of all, React is a "library" for JavaScript. That seems to be important for some people.
+
+Not for me, but still, there is a valid point: React already is a framework / library for JavaScript. So it's already **an extra layer on top of JS.**
+
+## Why would we then need NextJS?
+
+Because NextJS makes building React apps easier - especially React apps that should have server-side rendering (though it does way more than just take care of that).
+
+In this article, we'll dive into the core concepts and features NextJS has to offer:
+
+- File-based Routing
+- Built-in Page Pre-rendering
+- Rich Data Fetching Capabilities
+- Image Optimization
+- API Routes
+- Much More
+
+## File-based Routing
+
+![Create routes via your file + folder structure](nextjs-file-based-routing.png)
