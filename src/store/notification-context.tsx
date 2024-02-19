@@ -5,6 +5,8 @@ const NotificationContext = createContext({
   notification: {} as NotificationType | null,
   showNotification: (notificationData: NotificationType) => {},
   hideNotification: () => {},
+  showErrorNotification: (notificationData: PartialType) => {},
+  showSuccessNotification: (notificationData: PartialType) => {},
 });
 
 export function NotificationContextProvider(props: ChildrenPropsType) {
@@ -27,6 +29,7 @@ export function NotificationContextProvider(props: ChildrenPropsType) {
   }, [activeNotification]);
 
   function showNotificationHandler(notificationData: NotificationType) {
+    console.log("222");
     setActiveNotification(notificationData);
   }
 
@@ -38,6 +41,21 @@ export function NotificationContextProvider(props: ChildrenPropsType) {
     notification: activeNotification,
     showNotification: showNotificationHandler,
     hideNotification: hideNotificationHandler,
+
+    showErrorNotification: ({ message, title = "Error!" }: PartialType) => {
+      showNotificationHandler({
+        title,
+        message,
+        status: "error",
+      });
+    },
+    showSuccessNotification: ({ message, title = "Success!" }: PartialType) => {
+      showNotificationHandler({
+        title,
+        message,
+        status: "success",
+      });
+    },
   };
 
   return (
@@ -53,4 +71,9 @@ export type NotificationType = {
   status: "success" | "error" | "pending";
   title: string;
   message: string;
+};
+
+type PartialType = {
+  message: string;
+  title?: string;
 };
