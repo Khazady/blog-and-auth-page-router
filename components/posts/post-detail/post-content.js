@@ -1,5 +1,6 @@
 import PostHeader from "./post-header";
 import styles from "./post-content.module.css";
+import ReactMarkdown from "react-markdown";
 
 const MOCK_POST = {
   slug: "getting-started-nextjs",
@@ -18,7 +19,7 @@ export default function PostContent(props) {
   return (
     <article className={styles.content}>
       <PostHeader title={post.title} image={imagePath} />
-      {post.content}
+      <ReactMarkdown>{post.content}</ReactMarkdown>
     </article>
   );
 }
