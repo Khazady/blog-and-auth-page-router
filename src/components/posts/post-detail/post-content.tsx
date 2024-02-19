@@ -3,6 +3,8 @@ import styles from "./post-content.module.css";
 import ReactMarkdown from "react-markdown";
 import { PostType } from "@/lib/types/post";
 import Image from "next/image";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism"; // cjm for server side, not esm
 
 type PropsType = {
   post: PostType;
@@ -27,6 +29,20 @@ export default function PostContent(props: PropsType) {
               height={300}
             />
           ),
+          code: (code) => {
+            const { className, children } = code;
+            if (typeof children !== "string" || !className) {
+              return <code>{children}</code>;
+            }
+            const language = className.split("-")[1]; // className is something like language-js => We need the "js" part here
+            return (
+              <SyntaxHighlighter
+                style={materialDark}
+                language={language}
+                children={children}
+              />
+            );
+          },
         }}
       >
         {post.content}
