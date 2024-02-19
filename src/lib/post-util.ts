@@ -1,6 +1,7 @@
-import fs from "fs/promises";
+import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { PostType } from "@/lib/types/post";
 
 const postsDirectoryPath = path.join(
   process.cwd(),
@@ -9,9 +10,9 @@ const postsDirectoryPath = path.join(
   "posts",
 );
 
-async function getPostData(fileName) {
+function getPostData(fileName: string) {
   const filePath = path.join(postsDirectoryPath, fileName);
-  const fileContent = await fs.readFile(filePath, "utf-8");
+  const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
   const postSlug = fileName.replace(/\.mdx?$/, ""); //removes file extension
   const postData = {
@@ -19,11 +20,11 @@ async function getPostData(fileName) {
     content,
     slug: postSlug,
   };
-  return postData;
+  return postData as PostType;
 }
 
-export async function getAllPosts() {
-  const postFiles = await fs.readdir(postsDirectoryPath);
+export function getAllPosts() {
+  const postFiles = fs.readdirSync(postsDirectoryPath);
 
   const allPosts = postFiles.map(getPostData);
 
