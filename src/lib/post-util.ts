@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { PostType } from "@/lib/types/post";
+import { removeFileExtension } from "@/lib/utils";
 
 const postsDirectoryPath = path.join(
   process.cwd(),
@@ -10,11 +11,15 @@ const postsDirectoryPath = path.join(
   "posts",
 );
 
-function getPostData(fileName: string) {
-  const filePath = path.join(postsDirectoryPath, fileName);
+export function getPostsFilenames() {
+  return fs.readdirSync(postsDirectoryPath);
+}
+
+export function getPostData(postIdentifier: string) {
+  const postSlug = removeFileExtension(postIdentifier);
+  const filePath = path.join(postsDirectoryPath, `${postSlug}.md`);
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
-  const postSlug = fileName.replace(/\.mdx?$/, ""); //removes file extension
   const postData = {
     ...data,
     content,
@@ -24,7 +29,7 @@ function getPostData(fileName: string) {
 }
 
 export function getAllPosts() {
-  const postFiles = fs.readdirSync(postsDirectoryPath);
+  const postFiles = getPostsFilenames();
 
   const allPosts = postFiles.map(getPostData);
 
