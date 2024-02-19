@@ -1,19 +1,14 @@
 import PostHeader from "./post-header";
 import styles from "./post-content.module.css";
 import ReactMarkdown from "react-markdown";
+import { PostType } from "@/lib/types/post";
 
-const MOCK_POST = {
-  slug: "getting-started-nextjs",
-  title: "Next JS Post 1",
-  image: "getting-started-nextjs.png",
-  excerpt: "Next.js is a JavaScript framework for building user interfaces.",
-  date: "2021-01-01",
-  content: "# This is a first post",
+type PropsType = {
+  post: PostType;
 };
 
-export default function PostContent(props) {
+export default function PostContent(props: PropsType) {
   let { post } = props;
-  post = MOCK_POST;
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
 
   return (
