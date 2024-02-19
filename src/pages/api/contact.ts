@@ -9,10 +9,8 @@ export default function handler(
   response: NextApiResponse<ResponseData>,
 ) {
   if (request.method === "POST") {
-    // receive data
     const { email, name, message } = request.body;
 
-    // validate data
     if (
       !email ||
       !email.includes("@") ||
