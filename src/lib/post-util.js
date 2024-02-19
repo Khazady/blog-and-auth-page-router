@@ -2,7 +2,12 @@ import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
 
-const postsDirectoryPath = path.join(process.cwd(), "content", "posts");
+const postsDirectoryPath = path.join(
+  process.cwd(),
+  "public",
+  "content",
+  "posts",
+);
 
 async function getPostData(fileName) {
   const filePath = path.join(postsDirectoryPath, fileName);
