@@ -14,8 +14,16 @@ export default function MainNavigation() {
             <Link href="/posts">Posts</Link>
           </li>
           <li>
-            {" "}
             <Link href="/contact">Contact</Link>
+          </li>
+          <li>
+            <Link href="/auth">Login</Link>
+          </li>
+          <li>
+            <Link href="/profile">Profile</Link>
+          </li>
+          <li>
+            <button>Logout</button>
           </li>
         </ul>
       </nav>
