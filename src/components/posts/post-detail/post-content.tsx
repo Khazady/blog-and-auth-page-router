@@ -3,8 +3,11 @@ import styles from "./post-content.module.css";
 import ReactMarkdown from "react-markdown";
 import { PostType } from "@/lib/types/post";
 import Image from "next/image";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism"; // cjm for server side, not esm
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import materialDark from "react-syntax-highlighter/dist/cjs/styles/prism/material-dark"; // cjm for server side, not esm
+import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+
+SyntaxHighlighter.registerLanguage("js", js); // this optimizes weight of react-syntax-highlighter lib by specifying the language
 
 type PropsType = {
   post: PostType;
