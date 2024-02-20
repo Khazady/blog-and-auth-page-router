@@ -1,14 +1,18 @@
 import "../styles/globals.css";
 import Layout from "../components/layout/layout";
 import { NotificationContextProvider } from "../store/notification-context";
+import MainHead from "../components/metadata/main-head";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <NotificationContextProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </NotificationContextProvider>
+    <>
+      <MainHead />
+      <NotificationContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </NotificationContextProvider>
+    </>
   );
 }
 

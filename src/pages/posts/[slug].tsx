@@ -4,6 +4,7 @@ import { PostType } from "@/lib/types/post";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { removeFileExtension } from "@/lib/utils";
+import Head from "next/head";
 
 interface Params extends ParsedUrlQuery {
   slug: string;
@@ -14,7 +15,15 @@ type PropsType = {
 };
 
 const PostDetailPage: NextPage<PropsType> = ({ post }) => {
-  return <PostContent post={post} />;
+  return (
+    <>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.excerpt} />
+      </Head>
+      <PostContent post={post} />
+    </>
+  );
 };
 
 export const getStaticProps: GetStaticProps<PropsType, Params> = (context) => {
