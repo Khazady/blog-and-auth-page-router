@@ -1,5 +1,6 @@
-import { connectToDatabase, insertDocument } from "@/lib/database";
+import { connectToDatabase, insertDocument } from "@/lib/server/database";
 import { NextApiRequest, NextApiResponse } from "next";
+import { hashPassword } from "@/lib/server/auth";
 
 type ResponseData = {};
 
@@ -20,6 +21,16 @@ export default async function handler(
     return;
   }
 
+  //catch database connection errors
   const client = await connectToDatabase();
-  await insertDocument(client, "users", { email, password });
+
+  const hashedPassword = hashPassword(password);
+
+  //catch database insert errors
+  const result = await insertDocument(client, "users", {
+    email,
+    password: hashedPassword,
+  });
+
+  res.status(201).json({ message: "Created User!" });
 }
