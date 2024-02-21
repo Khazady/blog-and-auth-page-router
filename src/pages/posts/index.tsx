@@ -1,5 +1,5 @@
 import AllPosts from "@/components/posts/all-posts";
-import { getAllPosts } from "@/lib/post-util";
+import { getAllPosts } from "@/lib/api/server/post";
 import { PostType } from "@/lib/types/post";
 import Head from "next/head";
 
