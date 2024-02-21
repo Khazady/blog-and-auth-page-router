@@ -2,8 +2,10 @@ import { FormEvent, useState } from "react";
 import classes from "./auth-form.module.css";
 import { createUser } from "@/lib/api/user-request";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function AuthForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
@@ -28,6 +30,9 @@ function AuthForm() {
         password,
       });
       setIsLoading(false);
+      if (!result?.error) {
+        router.replace("/profile");
+      }
     } else {
       try {
         setIsLoading(true);
