@@ -7,6 +7,7 @@ function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
@@ -20,14 +21,18 @@ function AuthForm() {
     if (isLogin) {
       // redirect: false means don't redirect when auth fails (when throw error in authorize function)
       //no sense to try-catch here, it's always return object event if it fails
+      setIsLoading(true);
       const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
       });
+      setIsLoading(false);
     } else {
       try {
+        setIsLoading(true);
         const result = await createUser({ email, password });
+        setIsLoading(false);
         console.log(result);
       } catch (error) {
         console.log(error);
@@ -60,11 +65,14 @@ function AuthForm() {
           />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
+          <button disabled={isLoading}>
+            {isLoading ? "Loading..." : isLogin ? "Login" : "Create Account"}
+          </button>
           <button
             type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
+            disabled={isLoading}
           >
             {isLogin ? "Create new account" : "Login with existing account"}
           </button>
