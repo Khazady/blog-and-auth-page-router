@@ -23,16 +23,27 @@ export default async function handler(
     return;
   }
 
-  //catch database connection errors
-  const client = await connectToDatabase();
+  let client;
+  try {
+    client = await connectToDatabase();
+  } catch (error) {
+    res.status(500).json({ message: "Connection to database failed" });
+    return;
+  }
 
-  const hashedPassword = hashPassword(password);
+  const hashedPassword = await hashPassword(password);
 
-  //catch database insert errors
-  const result = await insertDocument(client, "users", {
+  const newUser = {
     email,
     password: hashedPassword,
-  });
+  };
+
+  try {
+    await insertDocument(client, "users", newUser);
+  } catch (error) {
+    res.status(500).json({ message: "Inserting data failed" });
+    return;
+  }
 
   res.status(201).json({ message: "Created User!" });
 }
