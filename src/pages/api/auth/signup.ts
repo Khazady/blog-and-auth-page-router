@@ -1,4 +1,8 @@
-import { connectToDatabase, insertDocument } from "@/lib/server/database";
+import {
+  connectToDatabase,
+  findDocument,
+  insertDocument,
+} from "@/lib/server/database";
 import { NextApiRequest, NextApiResponse } from "next";
 import { hashPassword } from "@/lib/server/auth";
 
@@ -28,6 +32,13 @@ export default async function handler(
     client = await connectToDatabase();
   } catch (error) {
     res.status(500).json({ message: "Connection to database failed" });
+    return;
+  }
+
+  const existingUser = await findDocument(client, "users", { email });
+  if (existingUser) {
+    // uniqueness check
+    res.status(422).json({ message: "User already exists" });
     return;
   }
 
