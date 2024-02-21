@@ -17,7 +17,7 @@ export default function ContactForm() {
 
   async function sendMessageHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("111");
+
     showNotification({
       title: "Sending message...",
       message: "Your message is on it's way.",
