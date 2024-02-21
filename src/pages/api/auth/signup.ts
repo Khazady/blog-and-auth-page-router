@@ -8,6 +8,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>,
 ) {
+  if (req.method !== "POST") return;
+
   const { email, password } = req.body;
 
   if (!email || !email.includes("@") || !email.includes(".") || !password) {
