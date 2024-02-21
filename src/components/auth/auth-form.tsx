@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import classes from "./auth-form.module.css";
 import { createUser } from "@/lib/api/user-request";
+import { signIn } from "next-auth/react";
 
 function AuthForm() {
   const [email, setEmail] = useState("");
@@ -17,7 +18,13 @@ function AuthForm() {
     //add client-side validation, e.g zod
 
     if (isLogin) {
-      //log in req
+      // redirect: false means don't redirect when auth fails (when throw error in authorize function)
+      //no sense to try-catch here, it's always return object event if it fails
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
     } else {
       try {
         const result = await createUser({ email, password });
