@@ -9,6 +9,7 @@
     "prettier:fix": "npx prettier . --write"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "gray-matter": "^4.0.3",
     "mongodb": "^6.3.0",
