@@ -13,3 +13,8 @@ export async function getAllDocuments({ client, collection, sort, filter }) {
   const db = client.db();
   return await db.collection(collection).find(filter).sort(sort).toArray();
 }
+
+export async function findDocument(client, collection, document) {
+  const db = client.db();
+  return await db.collection(collection).findOne(document);
+}
