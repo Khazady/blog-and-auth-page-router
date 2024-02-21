@@ -1,12 +1,18 @@
 import Link from "next/link";
 import styles from "./main-navigation.module.css";
 import Logo from "./logo";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function MainNavigation() {
   const { data: session, status } = useSession();
   const isSignedIn = status === "authenticated" && session;
   const isLoading = status === "loading";
+
+  function logoutHandler() {
+    // no need to handle result, as we already have a useSession here for updating UI
+    signOut();
+  }
+
   return (
     <header className={styles.header}>
       <Link href="/">
@@ -31,7 +37,7 @@ export default function MainNavigation() {
                 <Link href="/profile">Profile</Link>
               </li>
               <li>
-                <button>Logout</button>
+                <button onClick={logoutHandler}>Logout</button>
               </li>
             </>
           )}
