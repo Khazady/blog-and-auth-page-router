@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"; // for buildi
 import { connectToDatabase, findDocument } from "@/lib/server/database";
 import { verifyPassword } from "@/lib/server/auth";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
