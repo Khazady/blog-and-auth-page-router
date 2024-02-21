@@ -21,7 +21,7 @@ export const getServerSideProps = (async (context) => {
   }
 
   return {
-    props: { session },
+    props: { user: { email: session.user?.email } },
   };
 }) satisfies GetServerSideProps;
 
