@@ -1,7 +1,7 @@
 import FeaturedPosts from "@/components/home-page/featured-posts";
 import Hero from "@/components/home-page/hero";
 import { PostType } from "@/lib/types/post";
-import { getFeaturedPosts } from "@/lib/api/server/post";
+import { getFeaturedPosts } from "@/lib/server/posts";
 import Head from "next/head";
 
 type PropsType = {

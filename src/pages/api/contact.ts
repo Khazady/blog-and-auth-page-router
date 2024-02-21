@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase, insertDocument } from "@/lib/database";
+import { connectToDatabase, insertDocument } from "@/lib/server/database";
 
 type ResponseData = {
   message: string;

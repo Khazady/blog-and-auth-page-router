@@ -1,5 +1,5 @@
 import PostContent from "@/components/posts/post-detail/post-content";
-import { getPostData, getPostsFilenames } from "@/lib/api/server/post";
+import { getPostData, getPostsFilenames } from "@/lib/server/posts";
 import { PostType } from "@/lib/types/post";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
