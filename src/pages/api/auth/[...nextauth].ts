@@ -4,6 +4,16 @@ import { connectToDatabase, findDocument } from "@/lib/server/database";
 import { verifyPassword } from "@/lib/server/auth";
 
 export const authOptions: NextAuthOptions = {
+  callbacks: {
+    session({ session }) {
+      // omit default next auth "name" and "image" properties, which are undefined and cant be serialized in server props
+      const { email } = session.user;
+      return {
+        ...session,
+        user: { email },
+      };
+    },
+  },
   session: {
     strategy: "jwt",
   },
