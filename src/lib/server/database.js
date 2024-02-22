@@ -18,3 +18,8 @@ export async function findDocument(client, collection, document) {
   const db = client.db();
   return await db.collection(collection).findOne(document);
 }
+
+export async function updateDocument(client, collection, document, target) {
+  const db = client.db();
+  return await db.collection(collection).updateOne(document, target);
+}
