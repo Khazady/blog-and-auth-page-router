@@ -1,16 +1,39 @@
 import { changePassword } from "@/lib/repos/user-requests/change-password";
+import NotificationContext from "@/store/notification-context";
 import classes from "./profile-form.module.css";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 
 function ProfileForm() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { showNotification, showSuccessNotification, showErrorNotification } =
+    useContext(NotificationContext);
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
     //add client-side validation, e.g zod
 
-    const res = await changePassword({ oldPassword, newPassword });
-    console.log(res);
+    showNotification({
+      title: "Please wait...",
+      message: "Your request is being processed...",
+      status: "pending",
+    });
+
+    try {
+      const result = await changePassword({ oldPassword, newPassword });
+      showSuccessNotification({
+        message: result.message || "Password changed successfully.",
+      });
+    } catch (error) {
+      showErrorNotification({
+        message: (error as Error).message || "Something went wrong.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
@@ -33,7 +56,9 @@ function ProfileForm() {
         />
       </div>
       <div className={classes.action}>
-        <button>Change Password</button>
+        <button disabled={isLoading}>
+          {isLoading ? "Changing..." : "Change Password"}
+        </button>
       </div>
     </form>
   );
