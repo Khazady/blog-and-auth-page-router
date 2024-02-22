@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import classes from "./auth-form.module.css";
-import { createUser } from "@/lib/api/user-request";
+import { createUser } from "@/lib/repos/user-requests/create-user";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

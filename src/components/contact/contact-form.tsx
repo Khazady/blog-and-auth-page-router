@@ -1,6 +1,6 @@
 import styles from "./contact-form.module.css";
 import { FormEvent, useContext, useState } from "react";
-import { createMessage } from "@/lib/api/message-request";
+import { createMessage } from "@/lib/repos/message-request";
 import NotificationContext from "@/store/notification-context";
 
 export default function ContactForm() {

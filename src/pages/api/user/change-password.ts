@@ -31,8 +31,13 @@ export default async function handler(
       .json({ message: "New password cannot be the same as the old password" });
     return;
   }
-
-  const client = await connectToDatabase();
+  let client;
+  try {
+    client = await connectToDatabase();
+  } catch (error) {
+    res.status(500).json({ message: "Connection to database failed" });
+    return;
+  }
 
   const user = await findDocument(client, "users", {
     email: userEmail,
