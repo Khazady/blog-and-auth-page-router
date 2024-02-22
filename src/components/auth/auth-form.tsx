@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import NotificationContext from "@/store/notification-context";
+import { FormEvent, useContext, useState } from "react";
 import classes from "./auth-form.module.css";
 import { createUser } from "@/lib/repos/user-requests/create-user";
 import { signIn } from "next-auth/react";
@@ -11,6 +12,9 @@ function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { showNotification, showSuccessNotification, showErrorNotification } =
+    useContext(NotificationContext);
+
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
@@ -18,29 +22,48 @@ function AuthForm() {
   async function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    setIsLoading(true);
+
+    showNotification({
+      title: "Please wait...",
+      message: "Your request is being processed...",
+      status: "pending",
+    });
+
     //add client-side validation, e.g zod
 
     if (isLogin) {
       // redirect: false means don't redirect when auth fails (when throw error in authorize function)
       //no sense to try-catch here, it's always return object event if it fails
-      setIsLoading(true);
       const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
       });
       setIsLoading(false);
-      if (!result?.error) {
+      if (result?.ok) {
+        showSuccessNotification({
+          message: "User logged in successfully.",
+        });
         router.replace("/profile");
+      }
+      if (result?.error) {
+        showErrorNotification({
+          message: result.error || "Something went wrong.",
+        });
       }
     } else {
       try {
-        setIsLoading(true);
         const result = await createUser({ email, password });
-        setIsLoading(false);
-        console.log(result);
+        showSuccessNotification({
+          message: result.message || "User created successfully.",
+        });
       } catch (error) {
-        console.log(error);
+        showErrorNotification({
+          message: (error as Error).message || "Something went wrong.",
+        });
+      } finally {
+        setIsLoading(false);
       }
     }
   }
