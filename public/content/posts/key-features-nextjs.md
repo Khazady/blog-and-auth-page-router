@@ -1,7 +1,7 @@
 ---
 title: NextJS Key Features
 excerpt: Let's list most fundamental features NextJS offers
-image: key-features-nextjs.png
+image: key-features-nextjs.webp
 isFeatured: true
 date: "2024-02-22"
 ---
