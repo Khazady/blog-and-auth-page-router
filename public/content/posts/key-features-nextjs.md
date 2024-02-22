@@ -1,7 +1,7 @@
 ---
 title: NextJS Key Features
 excerpt: Let's list most fundamental features NextJS offers
-image: nextjs-file-based-routing.png
+image: key-features-nextjs.png
 isFeatured: true
 date: "2024-02-22"
 ---
