@@ -29,7 +29,6 @@ export function NotificationContextProvider(props: ChildrenPropsType) {
   }, [activeNotification]);
 
   function showNotificationHandler(notificationData: NotificationType) {
-    console.log("222");
     setActiveNotification(notificationData);
   }
 
