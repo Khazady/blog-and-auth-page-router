@@ -7,6 +7,7 @@ import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import materialDark from "react-syntax-highlighter/dist/cjs/styles/prism/material-dark"; // cjm for server side, not esm
 import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
 import ts from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
+import rehypeRaw from "rehype-raw";
 
 SyntaxHighlighter.registerLanguage("js", js); // this optimizes weight of react-syntax-highlighter lib by specifying the language
 SyntaxHighlighter.registerLanguage("typescript", ts); // this optimizes weight of react-syntax-highlighter lib by specifying the language
@@ -23,6 +24,7 @@ export default function PostContent(props: PropsType) {
     <article className={styles.content}>
       <PostHeader title={post.title} image={imagePath} />
       <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
         components={{
           img: (image) => (
             <Image
