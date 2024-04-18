@@ -6,8 +6,10 @@ import Image from "next/image";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import materialDark from "react-syntax-highlighter/dist/cjs/styles/prism/material-dark"; // cjm for server side, not esm
 import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+import ts from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
 
 SyntaxHighlighter.registerLanguage("js", js); // this optimizes weight of react-syntax-highlighter lib by specifying the language
+SyntaxHighlighter.registerLanguage("typescript", ts); // this optimizes weight of react-syntax-highlighter lib by specifying the language
 
 type PropsType = {
   post: PostType;
