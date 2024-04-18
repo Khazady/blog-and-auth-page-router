@@ -5,7 +5,6 @@ image: "typescript.png"
 excerpt: "Let's say that these are my notes about Typescript."
 isFeatured: false
 ---
-# Typescript
 
 ## Type VS Interface
 **Type** может быть примитивом, union и tuple (кортеж), нельзя изменить после создания
