@@ -3,7 +3,7 @@ title: "Getting started with NextJS"
 date: "2024-02-18"
 image: "getting-started-nextjs.png"
 excerpt: "Next.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations. Under the hood, Next.js also abstracts and automatically configures tooling needed for React, like bundling, compiling, and more."
-isFeatured: false
+isFeatured: true
 ---
 
 # Next.js Framework
@@ -31,4 +31,4 @@ In this article, we'll dive into the core concepts and features NextJS has to of
 
 ## File-based Routing
 
-![Create routes via your file + folder structure](../../images/posts/getting-started-nextjs/nextjs-file-based-routing.png)
+![Create routes via your file + folder structure](nextjs-file-based-routing.png)
