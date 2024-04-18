@@ -5,12 +5,11 @@ image: "javascript.jpeg"
 excerpt: "My notes about Javascript, i'll split this page later"
 isFeatured: false
 ---
-# Vanilla Javascript
 
 ## Common:
 
 ### Hoisting - поднятие
-Декларация **функции и var** поднимается в начало кода со значением `undefined`
+Декларация __функции и var__ поднимается в начало кода со значением `undefined`
 
 **do hoist**:
 1. `function declaration(){}`
@@ -77,7 +76,7 @@ max10('This is string more than 10 letters')
 Самая старая макрозадача помещается в стек, выполняется и затем выполняются **все** новые микрозадачи, добавленные в очередь. Далее выполняется следующая макрозадача и т.д.
    - Это Web APIs (fetch, setTimeout, слушатели событий).
 
-![event-loop.png](../../images/posts/javascript/event-loop.png)
+![event-loop.png](event-loop.png)
 
    
 #### Common cases:
