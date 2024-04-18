@@ -8,10 +8,10 @@ date: "2024-02-22"
 ## NextJS Key Features:
 
 ### 1. **Pre-rendering pages on the server side:**
-    - This feature eliminates the **initial loading** state by rendering pages on the server side.  
+- This feature eliminates the **initial loading** state by rendering pages on the server side.  
     React components load data from the API only after they have been rendered, preventing issues such as flickering loaders.
-    - Pre-rendering improves SEO, as search engine crawlers can access the page content.   
-    Since React is built with JavaScript inside a `<div id="root"/>`, crawlers cannot read HTML. Therefore, if you have public pages with a lot of content that need to be found through search engines, NextJS is essential.
+- Pre-rendering improves SEO, as search engine crawlers can access the page content.   
+Since React is built with JavaScript inside a `<div id="root"/>`, crawlers cannot read HTML. Therefore, if you have public pages with a lot of content that need to be found through search engines, NextJS is essential.
 
 ### 2. **#File-based Routing:**
     - Unlike React, which lacks a built-in routing solution, NextJS provides a straightforward concept of routing, similar to basic HTML web development.
