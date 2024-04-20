@@ -20,7 +20,7 @@ type PartialPoint = PartialPointX | PartialPointY;
 type Data = [number, string];
 ```
 
-**Interface** только объектом, его **повторные декларация объединяются** ([declaration merging](#declaration-merging))
+**Interface** только объектом, его **повторные декларации объединяются** ([declaration merging](#declaration-merging))
 
 ### Extension & Intersection
 #### Intersection

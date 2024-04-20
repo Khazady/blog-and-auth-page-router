@@ -7,6 +7,75 @@ isFeatured: false
 ---
 
 ## Common:
+### Complex types of data
+#### Map - ассоциативный массив / словарь
+>Это объект, где ключом может помимо строки быть любой тип данных
+ 
+Пример оптимизации Мапом 
+```js
+// было
+const getAssets = async () => [ //pseudo-GET req
+    {symbol: 'APPL', price: 100},
+    {symbol: 'GOOG', price: 50},
+    {symbol: 'MSFT', price: 25}
+]
+const resp = await getAssets()
+// iterates every time in Biseness Logic Layer
+resp.find(asset => asset.symbol === 'MSFT')
+// стало
+const transformAssetsArrayToMap = async () => {
+    const respArray = await getAssets()
+    const respMap = new Map()
+    // iterates 1 time in Data Acess Layer
+    respArray.forEach(asset => {
+        const {symbol, ...rest} = asset
+        respMap.set(symbol, {...rest});
+    });
+    return respMap
+}
+const resp = await transformAssetsArrayToMap()
+// instant in BLL
+resp.get('MSFT') 
+```
+#### Set - массив, только с уникальными значениями
+Можно отфильтровать дубликаты с массива
+`const uniqArr = [...new Set(arr)];`
+#### WeakMap - словарь со слабыми ссылками
+Нужен для того, чтобы помочь **garbage collector** удалить неиспользуемые объекты
+т.к. в Map они хранятся даже когда все ссылки в коде на них были перезаписаны
+>Ключом могут быть только объекты.
+>Не поддерживает методы, которыми можно взять все ключи сразу _(keys(), values(), entries()
+> т.к. мы не знаем в какой момент происходит удаление объектов сборщиком мусора)_
+
+Напр. Map
+```js
+let john = { name: "John" };
+
+let map = new Map();
+map.set(john, "...");
+
+john = null; // overwrite the reference
+
+// объект john сохранён внутри объекта `Map`
+// и будет занимать место в памяти, хотя уже не используется в коде,
+// и доступен только через map.keys()
+```
+Same code with WeakMap:
+```js
+let john = { name: "John" };
+
+let weakMap = new WeakMap();
+weakMap.set(john, "...");
+
+john = null; // перезаписываем ссылку на объект
+
+// объект john !будет удалён из памяти сборщиком!
+```
+[memoization example with WeakMap](#WeakMap_cache)
+#### WeakSet
+Тоже самое, только Set-подобная структура
+> тоже ключи только объекты и тоже удаляет из памяти
+> неиспользуемые в иных местах объекты
 
 ### Hoisting - поднятие
 Декларация __функции и var__ поднимается в начало кода со значением `undefined`
@@ -536,3 +605,63 @@ CORS
 
 
 Patters: singleton (Windows class e.g.)
+
+
+## Популярные задачи
+### Мемоизация (кэширование)
+```javascript
+const add = (a, b) => a + b
+    
+// HOF-мемоизатор
+function memoize(func) {
+    const cache = {}
+    return function(...args) {
+        // Формируем уникальный ключ для комбинации аргументов
+        let keyForThisCall = JSON.stringify(args)
+        if (cache[keyForThisCall]) { // Если результат уже в памяти
+            return cache[keyForThisCall] // возвращаем его
+        } else {
+            const result = func(args[0], args[1])  // Иначе считаем
+            cache[keyForThisCall] = result // и сохраняем в память
+            return result
+        }
+    }
+}
+
+const memoizedAdd = memoize(add)
+
+console.log(memoizedAdd(2, 3)); // Складываем 2 и 3, результат 5
+console.log(memoizedAdd(2, 3)); // Берем из памяти 2,3, результат 5
+```
+
+### Advanced, мемоизация с WeakMap/WeakSet <a name="WeakMap_cache"/>
+```js
+const difficultCalculationsWithObject = (obj) => {
+    return {...obj}
+};
+// HOF-мемоизатор
+function memoize(func) {
+    const cache = new WeakMap();
+    return function(...args) {
+        // Уникальным ключом будет ссылка на объект переданный в аргументах
+        const keyForThisCall = args[0];
+        if (cache.has(keyForThisCall)) {
+            const cachedResult = cache.get(keyForThisCall) // Если результат уже в памяти
+            return cachedResult // возвращаем его
+        } else {
+            let result = func(keyForThisCall); // Иначе считаем
+            cache.set(keyForThisCall, result);  // и сохраняем в память
+            return result;
+        }
+    }
+}
+
+const memoizedFunc = memoize(difficultCalculationsWithObject);
+
+let obj1 = { a: 1, b: 2 };
+
+console.log(memoizedFunc(obj1)); // calculates 1st call
+console.log(memoizedFunc(obj1)); // takes from cache 2nd
+obj1 = {} // overwrite the reference
+// позже { a: 1, b: 2 } будет удалён из WeakMap cache и из памяти
+```
