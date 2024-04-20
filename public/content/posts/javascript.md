@@ -95,10 +95,12 @@ a = 1;
 var a; // compilator will hoist this line upper
 ```
 
-### Замыкание closure
+### Замыкание closure 
 Когда функция запоминает своё лексическое окружение в скрытом свойстве `[[Environment]]`
 
 Напр. дочерняя функция запомнит параметр родительской функции
+
+<a name="closure"/>
 
 ```js
 const maxLengthCreator = (maxLength) => {
@@ -553,7 +555,7 @@ element.addEventListener ( "click", e => {
 ## FP - Functional Programming
 ### КАРРИРОВАНИЕ (carrying)
     
-Example from [closure](#замыкание-closure):
+[Example from closure](#closure):
 ```js
  maxLengthCreator(10)('This is string from some input')
  ```
