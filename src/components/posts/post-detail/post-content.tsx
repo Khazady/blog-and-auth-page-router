@@ -15,7 +15,7 @@ SyntaxHighlighter.registerLanguage("typescript", ts); // this optimizes weight o
 type PropsType = {
   post: PostType;
 };
-
+const blackquoteStyles = {margin: 0, padding: '1em', background: '#EBEBEB', borderLeft: '3px solid #ADD8E6'}
 export default function PostContent(props: PropsType) {
   let { post } = props;
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
@@ -35,6 +35,9 @@ export default function PostContent(props: PropsType) {
               width={600}
               height={300}
             />
+          ),
+          blockquote: ({children}) => (
+            <blockquote style={blackquoteStyles}>{children}</blockquote>
           ),
           code: (code) => {
             const { className, children } = code;
