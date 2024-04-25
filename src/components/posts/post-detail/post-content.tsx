@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PostHeader from "./post-header";
 import styles from "./post-content.module.css";
 import ReactMarkdown from "react-markdown";
@@ -15,7 +16,7 @@ SyntaxHighlighter.registerLanguage("typescript", ts); // this optimizes weight o
 type PropsType = {
   post: PostType;
 };
-const blackquoteStyles = {margin: 0, padding: '1em', background: '#EBEBEB', borderLeft: '3px solid #ADD8E6'}
+const blockquoteStyles = {margin: 0, padding: '1em', background: '#EBEBEB', borderLeft: '3px solid #ADD8E6'}
 export default function PostContent(props: PropsType) {
   let { post } = props;
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
@@ -37,8 +38,10 @@ export default function PostContent(props: PropsType) {
             />
           ),
           blockquote: ({children}) => (
-            <blockquote style={blackquoteStyles}>{children}</blockquote>
+            <blockquote style={blockquoteStyles}>{children}</blockquote>
           ),
+          a: ({children, href }) => {
+            return href && <Link href={href}>{children}</Link>},
           code: (code) => {
             const { className, children } = code;
             if (typeof children !== "string" || !className) {
