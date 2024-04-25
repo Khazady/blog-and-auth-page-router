@@ -64,10 +64,10 @@ class SomePoint2 implements Point2 {
 }
 ```
 
-### Declaration merging
+### Declaration merging <span id="declaration-merging"/>
 >Повторные декларации interface объединяются
 
->А **type не может** быть изменён после создания
+В отличие от **type, он не может** быть изменён после создания
 ```typescript
 // These two declarations become:
 // interface Point { x: number; y: number; }
@@ -76,6 +76,13 @@ interface Point { y: number; }
 
 const point: Point = { x: 1, y: 2 };
 ```
+
+## Abstract classes
+Это смесь interface и class: мы задаём абстрактные свойства и методы, которые должны быть реализованы
+в классе наследнике, как и в интерфейс,
+
+НО в этой конструкции также позволено писать и общую для детей логику.
+[link to OOP article](OOP#abstract-class)
 
 ## Generic type
 Это динамическая <тип-переменная>, что-то вроде параметра функции,
@@ -118,3 +125,4 @@ checks if field exists in object
 ## Utility Types
 Это что-то вроде встроенных 'функций' для манипулирования типами
 Напр. Partial, Pick, Omit, ReturnType, ReadOnly<PropsType> и т.д.
+

@@ -71,7 +71,7 @@ john = null; // перезаписываем ссылку на объект
 
 // объект john !будет удалён из памяти сборщиком!
 ```
-[memoization example with WeakMap](#WeakMap_cache)
+[memoization example with WeakMap](#weakmap-cache)
 #### WeakSet
 Тоже самое, только Set-подобная структура
 > тоже ключи только объекты и тоже удаляет из памяти
@@ -100,7 +100,7 @@ var a; // compilator will hoist this line upper
 
 Напр. дочерняя функция запомнит параметр родительской функции
 
-<a name="closure"/>
+<span id="closure"/>
 
 ```js
 const maxLengthCreator = (maxLength) => {
@@ -332,16 +332,19 @@ let laguna = new Car("laguna", 2002)
 
 -   Уникальные:
 ```javascript
+// require a lot of memory, separate method instance for each class instance
 function NameOfClass() {
     this.info = () => console.log('info')
 }
    ```
 -   Общие:
 ```javascript
-NameOfClass.prototype.age = () => console.log('age')
+// cheap, 1 method instance for 1 class (saved in prototype)
+NameOfClass.prototype.age = () => console.log('age') 
    ```
 -   Статические:
 ```js
+ // cheap, but can't work with instance context (only with arguments)
 NameOfClass.sayHello = () => console.log('hello')
 ```
 Ниже примеры для es6:
@@ -466,7 +469,7 @@ let user = {
         return `${this.name} ${this.surname}`;
     }, //getter example
     set fullName(value) {
-    [this.name, this.surname] = value.split(" ");
+        [this.name, this.surname] = value.split(" ");
     }, //setter example
 };
 
@@ -636,7 +639,7 @@ console.log(memoizedAdd(2, 3)); // Складываем 2 и 3, результа
 console.log(memoizedAdd(2, 3)); // Берем из памяти 2,3, результат 5
 ```
 
-### Advanced, мемоизация с WeakMap/WeakSet <a name="WeakMap_cache"/>
+### Advanced, мемоизация с WeakMap/WeakSet <span id="weakmap-cache"/>
 ```js
 const difficultCalculationsWithObject = (obj) => {
     return {...obj}
