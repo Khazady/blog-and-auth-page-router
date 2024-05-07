@@ -43,24 +43,9 @@ new Person()._privateField// undefined
 
 Цель - не дублировать код и экономить память, расширять уже существующий функционал.
 
-В javascript реализовано через прототипы:
-
-**prototype** - объект, который присутствует у всех функций и вызывается по цепочке сверху вниз
-
-**__proto__** -- ссылка на объект prototype класса родителя
-
-```javascript
-[].__proto__ === Array.prototype
-
-Child.prototype.__proto__ === Parent.prototype
-```
-
-**super** - слово вызывающее конструктор суперкласса (родительского) или его методы (пример ниже)
-
 ### Polymorphism
 Это способность вызывать один и тот же метод для разных объектов, и при этом каждый объект реагирует по-своему.
 Чтобы это произошло полиморфизм использует наследование.
-
 
 ### Example demonstrating all 4 concepts <span id="abstract-class-example"/>
 ```typescript
@@ -117,3 +102,47 @@ const john = new Talent('John', 'Smith', 30);
 //! 2. encapsulation (private field is not available from outside of the Talent class)
 john.#age // undefined 
 ```
+
+
+## OOP in Javascript
+
+### Prototype inheritance
+
+**prototype** - это объект (наследуется от Object.prototype), содержащий поля,
+которые будут переданы экземпляру-наследнику `Array.prototype.map === [].map`
+1. <span style="color:red;font-size:25px;">!!!</span> есть только у классов и function
+2. нет у стрелочных функций
+
+**__ proto __** 
+1. это свойство-ссылка на prototype родительского класса/функции-конструктора
+2. <span style="color:red;font-size:25px;">!!!</span>есть у любых типов данных кроме `null` & `undefined`
+```javascript
+let array = []; // under the hood - new Array()
+array.__proto__ === Array.prototype
+```
+3. boxing transforms primitives to objects
+```javascript
+let age = 30; // under the hood - new Number(30)
+age.__proto__ === Number.prototype
+// boxing transforms age from 30 to
+// { [[Prototype]]: Number, [[PrimitiveValue]]: 30 }
+```
+4. prototype тоже является объектом, поэтому его __ proto__ === Object.prototype блять???
+```javascript
+class Parent {}
+class Child extends Parent {}
+Child.prototype.__proto__ === Parent.prototype
+```
+5. движок, если не смог найти искомое свойство у объекта,
+он через ссылку __proto __ полезет искать его в prototype родителя,
+от которого был создан и далее в родителя родителя, пока не упрется в родителя Object равного `null`
+```javascript
+Child.hasOwnProperty()
+Child.__proto__ === Parent.prototype 
+Parent.__proto__ === Function.prototype
+Function.__proto__ === Object.prototype // .hasOwnProperty sits here, in protortype of Object
+Object.__proto__ === null
+
+```
+
+**super** - слово вызывающее конструктор суперкласса (родительского) или его методы (пример ниже)
