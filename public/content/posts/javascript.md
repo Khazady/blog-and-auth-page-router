@@ -6,7 +6,7 @@ excerpt: "My notes about Javascript, i'll split this page later"
 isFeatured: false
 ---
 
-## Common:
+## Common
 ### Complex types of data
 #### Map - ассоциативный массив / словарь
 >Это объект, где ключом может помимо строки быть любой тип данных
@@ -117,6 +117,49 @@ max10('This is string more than 10 letters')
 Вызывая `.length` у строки, движок js **оборачивает** примитив `"str"` в `new String("str")`    
 и у этого объекта вызывает поле `.length`, 
 после чего **удаляет** объект, чтобы мы не могли присвоить ему своих полей.                     
+
+## Objects
+
+### Object creating:
+```javascript
+const admin = Object.create(user)
+//это тоже самое, что и (наследуем объект user как класс)
+let admin = { __proto__: user }
+let admin = new Object({ __proto__: user })
+```
+### Object copying:
+#### Reference copying
+```js
+let admin = user;
+( {} === {} ) // false, objects are never equal, only references
+```
+#### Shallow copying
+1. Object.assign
+```js
+let user = {
+    name: "John",
+    age: 30
+};
+let anotherObject = { role: 'admin' }
+
+let shallowClone = Object.assign({}, user, anotherObject);
+```
+2. Spread operator
+```js
+let shallowClone = {...user, ...anotherObject};
+```
+#### Deep copying
+1. JSON.parse(JSON.stringify(originalObj))
+```js
+const originalObj = { a: 1, b: { c: 2 } };
+const clone = JSON.parse(JSON.stringify(originalObj))
+```
+> - <span style="color:red;font-size:25px;">!!!</span> JSON format doesn't support methods, so you can't copy methods in such way.
+> - It's also expensive in computational costs
+2. Recursive copying implementation
+3. `lodash.deepClone`
+4. `window.structuredClonse` (modern browsers only)
+> - <span style="color:red;font-size:25px;">!!!</span> structuredClone can't copy methods
 
 ## Asynchrony
 
@@ -285,244 +328,8 @@ const myPromise = new Promise ( (resolve, reject) => { } )
 
 `.then(data => Promise.reject() ).catch().then()` - все функции-подписчики будут исполнены
 
-## OOP - objected oriented programming
 
-### Общие определения:
-**Функция-конструктор** - `new Promise()`это отдельный вид функции
-1. имя должно начинаться с большой буквы,
-2. **должна вызываться при помощи оператора "new"**.
-3. такой вызов **создаёт пустой this**
-
-**Класс/Функция конструктор** - Определяет характеристики объекта. Класс это шаблон по которому в дальнейшем создаются объекты (экземпляры).
-
-**Объект** - Экземпляр класса создается с помощью функции оператора new - new constructor (arguments)
-
-### Cоздание классов и экземпляров:
-
-```javascript
-function Car(model, year) {  // это класс
-    //это конструктор
-    this.model = model;
-    this.year = year;
-}
-
-// **тоже самое в es6** синтаксисе
-class Car {
-    constructor(model, year) {
-        this.model = model;
-        this.year = year;
-    }
-}
-
-//это вызов функции-конструктора
-let laguna = new Car("laguna", 2002) 
-// результат {model: "laguna", year: 2002}
-```
-
-### Наследование:
-
-**Prototype** - объект, который присутствует у всех функций и вызывается по цепочке сверху вниз
-
-**__proto__** -- ссылка на объект prototype класса родителя
-
-```javascript
-[].__proto__ === Array.prototype
-```
-
-**super** - слово вызывающее конструктор суперкласса (родительского) или его методы (пример ниже)
-
-### Методы:
-
--   Уникальные:
-```javascript
-// require a lot of memory, separate method instance for each class instance
-function NameOfClass() {
-    this.info = () => console.log('info')
-}
-   ```
--   Общие:
-```javascript
-// cheap, 1 method instance for 1 class (saved in prototype)
-NameOfClass.prototype.age = () => console.log('age') 
-   ```
--   Статические:
-```js
- // cheap, but can't work with instance context (only with arguments)
-NameOfClass.sayHello = () => console.log('hello')
-```
-Ниже примеры для es6:
-
-```js
-class  Rabbit  extends  Animal  {
-    constructor (name) {
-        super(name) //вызывает конструктор Animal
-        this.fuck = function () { //уникальный метод для каждого экземпляра
-            console.log('rabbits are fast')
-        }
-    }
-    hide() {
-        alert(`${this.name} прячется!`); //общий (в prototype)
-    }
-    stop() {
-        super.stop(); // вызов метода из Animal
-        this.hide(); // и затем hide
-    }
-    static run() { //статический метод, не требует дату экземпляра
-        alert('Rabbit can run')
-    }
-}
-```
-
-### Создание объекта:
-```js
-const admin = Object.create(user, {
-    isAdmin: {value: true}
-})
-//это тоже самое, что и (наследуем объект user как класс)
-let admin = {
-    __proto__: user,
-    isAdmin: true
-};
-// и тоже самое
-let admin = new Object({
-    __proto__: user,
-    isAdmin: true
-})
-```
-### Копирование объекта:
-
-#### Reference copying
-```js
-let admin = user;
-( {} === {} ) // false, objects are never equal, only references
-```
-#### Shallow copying
-1. Object.assign
-```js
-let user = {
-    name: "John",
-    age: 30
-};
-let anotherObject = { role: 'admin' }
-
-let shallowClone = Object.assign({}, user, anotherObject);
-```
-2. Spread operator
-```js
-let shallowClone = {...user, ...anotherObject};
-```
-#### Deep copying
-1. JSON.parse(JSON.stringify(originalObj))
-```js
-const originalObj = { a: 1, b: { c: 2 } };
-const clone = JSON.parse(JSON.stringify(originalObj))
-```
-> - <span style="color:red;font-size:25px;">!!!</span> JSON format doesn't support methods, so you can't copy methods in such way.
-> - It's also expensive in computational costs
-2. Recursive copying implementation
-3. `lodash.deepClone`
-4. `window.structuredClonse` (modern browsers only)
-> - <span style="color:red;font-size:25px;">!!!</span> structuredClone can't copy methods
-
-### Контекст:
-**THIS** - слово this ссылается на текущий контекст,
->**это ссылка на объект в котором выполняется функция**
-> 
->позволяет вам работать со свойствами/методами класса
-
-global scope:
-**no use strict** - this === `window`(Web) or `global` (Node.js)
-**use strict**  - `this == undefined`;
-
-1.  Контекст(this) для стрелочных функци определяется **в момент их создания**.
-    ```js
-    const helloArrow = () => console.log('hello', this) // создана в глоб. области
-    Car.sayHello = helloArrow;
-    Car.sayHello() // выведет класс Window, т.к. была создана в глобальной области и **замкнулась** на класс Window
-    ```
-2.  Контекст(this) для `function(){}` определяется в **момент их вызова** и равен объекту перед точкой.\
-    ```js
-    function helloFunc () { console.log('hello', this )}
-    Car.sayHello = helloFunc; // (статический метод, присвоен классу)
-    Car.sayHello() // выведет конструктор класса Car (класс перед точкой)
-    laguna.sayHello = hello
-    ```
-
-#### Переопределение контекста, а также методы класса Function:
-
-**bind** - let новаяФункция = стараяФункция.bind(новыйКонтекст, остальные Аргументы нужные старойФункции)  **передает новый контекст(но не вызывает функцию!)**
-
-**call** - тоже самое, только **сразу же вызывает** функцию
-
-**apply** - тоже самое, но **остальные аргументы в массиве** -- стараяФункция.bind(новыйКонтекст, [остальные Аргументы, нужные старойФункции])
-
-!!!**Нельзя перепресвоить** контекст для новойФункции **повторно**! повторно вызвав один из методов
-
-### Getter & Setter:
-
-У объекта помимо свойств и методов, есть **свойства-аксеcсоры** - `get` и `set`. 
->По своей сути **это функции**, которые используются **для присвоения и получения значения**,
-но во внешнем коде они **выглядят как обычные** свойства объекта.
-
-```js
-let user = {
-    name:  "John",
-    surname: "Smith",
-    get fullName() {
-        return `${this.name} ${this.surname}`;
-    }, //getter example
-    set fullName(value) {
-        [this.name, this.surname] = value.split(" ");
-    }, //setter example
-};
-
-// getter usage
-alert(user.fullName); // John Smith
-
-// setter usage
-user.fullName = "Alice Cooper";
-alert(user.name);  // Alice
-alert(user.surname);  // Cooper
-```
-
-     
-### CHAINING
-Нужно **просто возвращать** `this` в каждом методе и сохранять в другое поле результат
-Можно реализовать и в функции, и в объекте, и в классе
->Удобно когда нужно сделать множество последовательных операций (с одной сущностью).
-```js
-const main = {
-  data: {
-    i: 0,
-  },
-  initiate: function (num = 0) {
-    this.data.i = num;
-    return this;
-  },
-  add: function (num) {
-    this.data.i += num;
-    return this;
-  },
-  subtract: function (num) {
-    this.data.i -= num;
-    return this;
-  },
-  multiple: function (num) {
-    this.data.i *= num;
-    return this;
-  },
-  divide: function (num) {
-    this.data.i /= num;
-    return this;
-  },
-  print: function () {
-    return this.data.i;
-  },
-};
-const value = main.initiate(10).add(6).subtract(4).divide(3).multiple(2).print(); //8
-```                                                                                                           
-
-## БРАУЗЕРНЫЙ JS
+## Browser Javascript
 
 ### Terms
 
@@ -551,13 +358,13 @@ element.addEventListener ( "click", e => {
 ```
 3-ий аргумент опциональный(либо просто true). Полезно, **если нужно выполнить событие сначала на родительском элементе**
 
-### Делегирование(delegation) событий:
+### Делегирование событий(event delegation):
 **Пример:**
 допустим у нас 800к комментов и на каждый придется вешать свой обработчик события для лайка/дизлайка.
 
 Вместо этого используется прием делегирования -
 вешаем обработчик на родителя элементов и с помощью `if (event.target.tagName)` указываем где именно должен произойти клик, таким образом мы сэкономили кучу памяти.
-               
+
 ## FP - Functional Programming
 ### КАРРИРОВАНИЕ (carrying)
     
@@ -614,8 +421,7 @@ CORS
 
 Patters: singleton (Windows class e.g.)
 
-
-## Популярные задачи
+## Popular tasks
 ### Мемоизация (кэширование)
 ```javascript
 const add = (a, b) => a + b
