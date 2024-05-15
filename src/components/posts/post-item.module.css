@@ -17,6 +17,7 @@
 .image img {
   background-color: var(--color-grey-300);
   object-fit: cover;
+  width: 100%;
 }
 
 .content {
