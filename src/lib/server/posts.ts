@@ -12,7 +12,8 @@ const postsDirectoryPath = path.join(
 );
 
 export function getPostsFilenames() {
-  return fs.readdirSync(postsDirectoryPath);
+  return fs.readdirSync(postsDirectoryPath)
+    .filter(filename => filename !== '.DS_Store');
 }
 
 export function getPostData(postIdentifier: string) {
