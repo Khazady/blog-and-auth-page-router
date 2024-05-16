@@ -1,7 +1,7 @@
 ---
 title: NextJS Key Features
 excerpt: Let's list most fundamental features NextJS offers
-image: key-features-nextjs.webp
+image: next-js.webp
 isFeatured: true
 date: "2024-02-22"
 ---
@@ -18,9 +18,6 @@ Since React is built with JavaScript inside a `<div id="root"/>`, crawlers canno
     - In this approach, each `.html` file represents a page, and the filename serves as its path.
     - NextJS supports features such as nested routes, catch-all routes, and dynamic routes.
     - **Off-topic:** Routing involves changing screen content based on the URL without sending a request to a server, thereby preventing the default browser behavior of page reload when the URL changes (e.g., with `window.location.href = "url"`).
-
-![Create routes via your file + folder structure](nextjs-file-based-routing.png)
-
 
 ### 3. **Full Stack Capabilities:**
     - NextJS allows for the easy addition of backend (server-side) code to your project through special pre-rendering page functions (e.g., static/serverSide Props).
