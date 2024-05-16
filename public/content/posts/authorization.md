@@ -1,3 +1,10 @@
+---
+title: React.js
+excerpt: React is the javascript library for web and native user interfaces
+image: authorization.jpeg
+isFeatured: true
+date: "2024-04-05"
+---
 **Autorization**
 
 JWT (JSON Web Token)
