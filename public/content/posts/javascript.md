@@ -95,23 +95,6 @@ a = 1;
 var a; // compilator will hoist this line upper
 ```
 
-### Замыкание closure 
-Когда функция запоминает своё лексическое окружение в скрытом свойстве `[[Environment]]`
-
-Напр. дочерняя функция запомнит параметр родительской функции
-
-<span id="closure"></span>
-
-```js
-const maxLengthCreator = (maxLength) => {
-    return (value) => {
-        return value.length > maxLength ? `Max length is ${maxLength} symbols` : undefined
-    }
-};
-const max10 = maxLengthCreator(10); //max10 функция замкнула значение maxLength == 10
-max10('This is string more than 10 letters')
-````
-
 ### Boxing/Unboxing                                                                             
                                                                                                 
 Вызывая `.length` у строки, движок js **оборачивает** примитив `"str"` в `new String("str")`    
@@ -160,6 +143,37 @@ const clone = JSON.parse(JSON.stringify(originalObj))
 3. `lodash.deepClone`
 4. `window.structuredClonse` (modern browsers only)
 > - <span style="color:red;font-size:25px;">!!!</span> structuredClone can't copy methods
+
+## Functions
+### Замыкание closure
+Когда функция запоминает своё лексическое окружение в скрытом свойстве `[[Environment]]`
+
+Напр. дочерняя функция запомнит параметр родительской функции
+
+<span id="closure"></span>
+
+```js
+const maxLengthCreator = (maxLength) => {
+    return (value) => {
+        return value.length > maxLength ? `Max length is ${maxLength} symbols` : undefined
+    }
+};
+const max10 = maxLengthCreator(10); //max10 функция замкнула значение maxLength == 10
+max10('This is string more than 10 letters')
+````
+
+### Псевдомассив `arguments`
+* даже если мы объявили функцию без аргументов, мы всё равно можем передать в неё параметры, 
+они попадут в специальный псевдомассив(нет методов массива) и к ним можно будет обратиться по индексам –
+
+* В `use strict` arguments ведет себя по другому, с пересваиванием параметров
+* У стрелочных нету псевдомассива arguments
+### Современная замена - …rest оператор
+`function(first, second, …restArgs){}` – остальные аргументы сложаться в настоящий массив
+
+![spread, rest, destructuring operators](3-dots-syntax.png)
+
+
 
 ## Asynchrony
 
