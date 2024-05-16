@@ -105,7 +105,6 @@ const john = new Talent('John', 'Smith', 30);
 john.#age // undefined 
 ```
 
-
 ## OOP in Javascript
 
 ### Common:
@@ -140,13 +139,14 @@ let laguna = new Car("laguna", 2002) // {model: "laguna", year: 2002}
 
 ### Prototype inheritance
 
+#### Prototype
 **prototype** - это объект, содержащий поля,
 которые будут переданы экземпляру-наследнику `Array.prototype.map === [].map` 
 и экземплярам дочерних классов `Object.prototype.hasOwnProperty === [].hasOwnProperty`
 1. <span style="color:red;font-size:25px;">!!!</span> есть только у классов и function
 2. <span style="color:red;font-size:25px;">!!!</span> нет у стрелочных функций
 
-**`__proto__`** 
+#### `__proto__` link
 1. <span style="color:red;font-size:25px;">!!!</span> это свойство-ссылка на prototype родительского класса/функции-конструктора
 2. <span style="color:red;font-size:25px;">!!!</span>есть у любых типов данных кроме `null` & `undefined`
 ```javascript
@@ -176,8 +176,14 @@ Child.__proto__ === Parent.prototype
 Parent.__proto__ === Function.prototype // .bind sits here, in prototype of Function
 ```
 
-**super** - слово вызывающее конструктор суперкласса (родительского) или его методы (пример ниже)
+![Scheme of prototype inheritance in JS](prototypes-diagram.png)
 
+#### super
+keyword вызывающее конструктор суперкласса (родительского) или его методы
+```javascript
+super([arguments]); // вызов родительского конструктора.
+super.functionOnParent([arguments]);
+```
 
 ### Getter & Setter:
 

@@ -100,7 +100,7 @@ var a; // compilator will hoist this line upper
 
 Напр. дочерняя функция запомнит параметр родительской функции
 
-<span id="closure"/>
+<span id="closure"></span>
 
 ```js
 const maxLengthCreator = (maxLength) => {
@@ -122,8 +122,8 @@ max10('This is string more than 10 letters')
 
 ### Object creating:
 ```javascript
+//inherite user object as prototype
 const admin = Object.create(user)
-//это тоже самое, что и (наследуем объект user как класс)
 let admin = { __proto__: user }
 let admin = new Object({ __proto__: user })
 ```
@@ -328,7 +328,6 @@ const myPromise = new Promise ( (resolve, reject) => { } )
 
 `.then(data => Promise.reject() ).catch().then()` - все функции-подписчики будут исполнены
 
-
 ## Browser Javascript
 
 ### Terms
@@ -380,46 +379,6 @@ sum(1)(2) // 3
 >sum is a HOF (High order function)
 > 
 >similar conception exists in React - HOC (High order component)
-
-
-
-
-**Autorization**
-
-JWT (JSON Web Token)
-
-FE <> BE
-
-1.  /login > creates JWT
-2.  save in localStorage < response (JWT)
-3.  request with signed JWT (placed in header) > validate JWT
-
-Session
-
-FE <> DB
-
-1.  /login > store session 
-2.  save cookie < response (session id)
-3.  request with cookie > check session
-4.  < response
-
-Cons:
-
-Vulnerable for CSRF - cross-site-request-forgery
-
-Requires storage
-
-**Common Questions**
-
-1.  После введения URL в адресную строку - DNS > IP > html > css > js > гидрация и т.д.
-2.  Как копировать объект
-
-**Security**
-
-CORS
-
-
-Patters: singleton (Windows class e.g.)
 
 ## Popular tasks
 ### Мемоизация (кэширование)
