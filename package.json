@@ -1,5 +1,6 @@
 {
   "name": "blog-page-router",
+  "description": "Personal blog with authorization, built with Next.js page router",
   "version": "0.1.0",
   "private": true,
   "scripts": {
