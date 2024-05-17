@@ -1,7 +1,7 @@
 ---
-title: React.js
+title: Authentication
 excerpt: React is the javascript library for web and native user interfaces
-image: authorization.jpeg
+image: authentication.jpeg
 isFeatured: true
 date: "2024-04-05"
 ---
