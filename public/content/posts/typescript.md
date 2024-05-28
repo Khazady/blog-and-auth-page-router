@@ -3,7 +3,7 @@ title: "TypeScript"
 date: "2024-04-18"
 image: "typescript.png"
 excerpt: "Let's say that these are my notes about Typescript."
-isFeatured: false
+isFeatured: true
 ---
 
 ## Type VS Interface

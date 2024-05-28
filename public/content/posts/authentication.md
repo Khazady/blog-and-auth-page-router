@@ -1,21 +1,25 @@
 ---
 title: Authentication
-excerpt: React is the javascript library for web and native user interfaces
+excerpt: This article explores the concepts of authentication and authorization, comparing JWT and session-based authentication methods. Learn how each method works, their advantages, and their potential security risks.
 image: authentication.jpeg
-isFeatured: true
+isFeatured: false
 date: "2024-04-05"
 ---
-**Autorization**
+## JWT (JSON Web Token)
+JWT is a compact, URL-safe means of representing claims to be transferred between two parties.
+It is often used for authentication and information exchange.
 
-JWT (JSON Web Token)
+### Workflow!
 
-FE <> BE
-
-1.  /login > creates JWT
-2.  save in localStorage < response (JWT)
+1.  api/login > creates JWT
+2.  save in localStorage < response with JWT 
 3.  request with signed JWT (placed in header) > validate JWT
 
-Session
+### SPA
+
+[SPA and JWT.png](jwt.png)
+
+## Session
 
 FE <> DB
 
@@ -29,12 +33,3 @@ Cons:
 Vulnerable for CSRF - cross-site-request-forgery
 
 Requires storage
-
-**Common Questions**
-
-1.  После введения URL в адресную строку - DNS > IP > html > css > js > гидрация и т.д.
-2.  Как копировать объект
-
-**Security**
-
-CORS

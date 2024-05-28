@@ -3,7 +3,7 @@ title: "JavaScript"
 date: "2024-04-18"
 image: "javascript.jpeg"
 excerpt: "My notes about Javascript, i'll split this page later"
-isFeatured: false
+isFeatured: true
 ---
 
 ## Common

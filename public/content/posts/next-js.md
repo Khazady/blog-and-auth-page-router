@@ -2,7 +2,7 @@
 title: Next.js framework
 excerpt: Next.js is a React framework. Yes, React already is a library for JS. So it's already an extra layer on top of JS
 image: next.webp
-isFeatured: true
+isFeatured: false
 date: "2024-02-22"
 ---
 ## NextJS Key Features:

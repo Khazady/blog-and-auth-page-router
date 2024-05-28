@@ -3,7 +3,7 @@ title: "Object Oriented Programming and OOP in Javascript"
 date: "2024-04-20"
 image: "OOP.jpg"
 excerpt: "OOP concepts and it's implementation in Javascript."
-isFeatured: false
+isFeatured: true
 ---
 
 ## Concepts
