@@ -1,4 +1,5 @@
 import { createMessage } from "@/lib/repos/message-request";
+import { contactSchema } from "@/schemas/concactSchema";
 import NotificationContext from "@/store/notification-context";
 import { FormEvent, useContext, useState } from "react";
 import styles from "./contact-form.module.css";
@@ -20,16 +21,22 @@ export default function ContactForm() {
   async function sendMessageHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    const result = contactSchema.safeParse({ name, email, message });
+
+    if (!result.success) {
+      const firstError = result.error.errors[0]?.message;
+      showErrorNotification({ message: firstError || "Validation error" });
+      return;
+    }
+
     showNotification({
       title: "Sending message...",
       message: "Your message is on it's way.",
       status: "pending",
     });
 
-    //add client-side validation, e.g zod
-
     try {
-      await createMessage({ email, name, message }); //replace fetch with useSWR/React-query
+      await createMessage(result.data); //replace fetch with useSWR/React-query
       showSuccessNotification({
         message: "Your message has been sent successfully.",
       });
