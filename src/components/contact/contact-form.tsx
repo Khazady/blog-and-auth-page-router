@@ -1,7 +1,7 @@
-import styles from "./contact-form.module.css";
-import { FormEvent, useContext, useState } from "react";
 import { createMessage } from "@/lib/repos/message-request";
 import NotificationContext from "@/store/notification-context";
+import { FormEvent, useContext, useState } from "react";
+import styles from "./contact-form.module.css";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -14,6 +14,8 @@ export default function ContactForm() {
     showSuccessNotification,
     showErrorNotification,
   } = useContext(NotificationContext);
+
+  const isPending = notification?.status === "pending";
 
   async function sendMessageHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,6 +52,7 @@ export default function ContactForm() {
             <input
               type="email"
               name="email"
+              autoComplete="email"
               id="email"
               required
               value={email}
@@ -61,6 +64,7 @@ export default function ContactForm() {
             <input
               type="text"
               name="name"
+              autoComplete="name"
               id="name"
               required
               value={name}
@@ -80,7 +84,9 @@ export default function ContactForm() {
           />
         </div>
         <div className={styles.actions}>
-          <button disabled={notification?.status === "pending"}>Send</button>
+          <button disabled={isPending}>
+            {isPending ? "Sending..." : "Send"}
+          </button>
         </div>
       </form>
     </section>
