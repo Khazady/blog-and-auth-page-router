@@ -1,9 +1,10 @@
-import NotificationContext from "@/store/notification-context";
-import { FormEvent, useContext, useState } from "react";
-import classes from "./auth-form.module.css";
 import { createUser } from "@/lib/repos/user-requests/create-user";
+import { registrationSchema } from "@/schemas/registrationSchema";
+import NotificationContext from "@/store/notification-context";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { FormEvent, useContext, useState } from "react";
+import classes from "./auth-form.module.css";
 
 function AuthForm() {
   const router = useRouter();
@@ -22,6 +23,19 @@ function AuthForm() {
   async function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if (!isLogin) {
+      const registrationResult = registrationSchema.safeParse({
+        email,
+        password,
+      });
+
+      if (!registrationResult.success) {
+        const firstError = registrationResult.error.errors[0]?.message;
+        showErrorNotification({ message: firstError || "Validation error" });
+        return;
+      }
+    }
+
     setIsLoading(true);
 
     showNotification({
@@ -29,8 +43,6 @@ function AuthForm() {
       message: "Your request is being processed...",
       status: "pending",
     });
-
-    //add client-side validation, e.g zod
 
     if (isLogin) {
       // redirect: false means don't redirect when auth fails (when throw error in authorize function)
@@ -78,7 +90,7 @@ function AuthForm() {
             type="email"
             id="email"
             required
-            autoComplete='username'
+            autoComplete="username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -89,7 +101,7 @@ function AuthForm() {
             type="password"
             id="password"
             required
-            autoComplete='current-password'
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
