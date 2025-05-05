@@ -1,9 +1,11 @@
 import { changePassword } from "@/lib/repos/user-requests/change-password";
 import NotificationContext from "@/store/notification-context";
+import {useSession} from "next-auth/react";
 import classes from "./profile-form.module.css";
 import { FormEvent, useContext, useState } from "react";
 
 function ProfileForm() {
+  const {data: session} = useSession();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +39,14 @@ function ProfileForm() {
   }
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="username"
+        autoComplete="username"
+        value={session?.user?.email ?? "username@example.com"}
+        readOnly
+        hidden
+      />
       <div className={classes.control}>
         <label htmlFor="new-password">New Password</label>
         <input
