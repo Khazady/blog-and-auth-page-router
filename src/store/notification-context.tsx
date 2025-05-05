@@ -1,12 +1,12 @@
-import { createContext, useEffect, useState } from "react";
 import { ChildrenPropsType } from "@/lib/types/common";
+import { createContext, useEffect, useState } from "react";
 
 const NotificationContext = createContext({
   notification: {} as NotificationType | null,
   showNotification: (notificationData: NotificationType) => {},
   hideNotification: () => {},
-  showErrorNotification: (notificationData: PartialType) => {},
-  showSuccessNotification: (notificationData: PartialType) => {},
+  showErrorNotification: (notificationData: NotificationPartialType) => {},
+  showSuccessNotification: (notificationData: NotificationPartialType) => {},
 });
 
 export function NotificationContextProvider(props: ChildrenPropsType) {
@@ -41,14 +41,20 @@ export function NotificationContextProvider(props: ChildrenPropsType) {
     showNotification: showNotificationHandler,
     hideNotification: hideNotificationHandler,
 
-    showErrorNotification: ({ message, title = "Error!" }: PartialType) => {
+    showErrorNotification: ({
+      message,
+      title = "Error!",
+    }: NotificationPartialType) => {
       showNotificationHandler({
         title,
         message,
         status: "error",
       });
     },
-    showSuccessNotification: ({ message, title = "Success!" }: PartialType) => {
+    showSuccessNotification: ({
+      message,
+      title = "Success!",
+    }: NotificationPartialType) => {
       showNotificationHandler({
         title,
         message,
@@ -72,7 +78,7 @@ export type NotificationType = {
   message: string;
 };
 
-type PartialType = {
+export type NotificationPartialType = {
   message: string;
   title?: string;
 };

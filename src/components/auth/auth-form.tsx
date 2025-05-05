@@ -1,4 +1,5 @@
 import { createUser } from "@/lib/repos/user-requests/create-user";
+import { validateOrNotify } from "@/lib/utils";
 import { registrationSchema } from "@/schemas/registrationSchema";
 import NotificationContext from "@/store/notification-context";
 import { signIn } from "next-auth/react";
@@ -24,16 +25,12 @@ function AuthForm() {
     e.preventDefault();
 
     if (!isLogin) {
-      const registrationResult = registrationSchema.safeParse({
+      const validation = registrationSchema.safeParse({
         email,
         password,
       });
 
-      if (!registrationResult.success) {
-        const firstError = registrationResult.error.errors[0]?.message;
-        showErrorNotification({ message: firstError || "Validation error" });
-        return;
-      }
+      if (!validateOrNotify(validation, showErrorNotification)) return;
     }
 
     setIsLoading(true);

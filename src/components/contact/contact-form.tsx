@@ -1,4 +1,5 @@
 import { createMessage } from "@/lib/repos/message-request";
+import { validateOrNotify } from "@/lib/utils";
 import { contactSchema } from "@/schemas/concactSchema";
 import NotificationContext from "@/store/notification-context";
 import { FormEvent, useContext, useState } from "react";
@@ -21,13 +22,9 @@ export default function ContactForm() {
   async function sendMessageHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const result = contactSchema.safeParse({ name, email, message });
+    const validation = contactSchema.safeParse({ name, email, message });
 
-    if (!result.success) {
-      const firstError = result.error.errors[0]?.message;
-      showErrorNotification({ message: firstError || "Validation error" });
-      return;
-    }
+    if (!validateOrNotify(validation, showErrorNotification)) return;
 
     showNotification({
       title: "Sending message...",
@@ -36,7 +33,7 @@ export default function ContactForm() {
     });
 
     try {
-      await createMessage(result.data); //replace fetch with useSWR/React-query
+      await createMessage(validation.data); //replace fetch with useSWR/React-query
       showSuccessNotification({
         message: "Your message has been sent successfully.",
       });

@@ -1,4 +1,5 @@
 import { changePassword } from "@/lib/repos/user-requests/change-password";
+import { validateOrNotify } from "@/lib/utils";
 import { changePasswordSchema } from "@/schemas/changePasswordSchema";
 import NotificationContext from "@/store/notification-context";
 import { useSession } from "next-auth/react";
@@ -23,11 +24,7 @@ function ProfileForm() {
       newPassword,
     });
 
-    if (!validation.success) {
-      const firstError = validation.error.errors[0]?.message;
-      showErrorNotification({ message: firstError || "Validation error" });
-      return;
-    }
+    if (!validateOrNotify(validation, showErrorNotification)) return;
 
     showNotification({
       title: "Please wait...",
