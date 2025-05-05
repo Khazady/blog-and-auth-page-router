@@ -78,6 +78,7 @@ function AuthForm() {
             type="email"
             id="email"
             required
+            autoComplete='username'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -88,6 +89,7 @@ function AuthForm() {
             type="password"
             id="password"
             required
+            autoComplete='current-password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

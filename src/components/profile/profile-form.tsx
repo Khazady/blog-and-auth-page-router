@@ -42,6 +42,7 @@ function ProfileForm() {
         <input
           type="password"
           id="new-password"
+          autoComplete='new-password'
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
@@ -51,6 +52,7 @@ function ProfileForm() {
         <input
           type="password"
           id="old-password"
+          autoComplete="old-password"
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
         />
