@@ -1,11 +1,12 @@
 import { changePassword } from "@/lib/repos/user-requests/change-password";
+import { changePasswordSchema } from "@/schemas/changePasswordSchema";
 import NotificationContext from "@/store/notification-context";
-import {useSession} from "next-auth/react";
-import classes from "./profile-form.module.css";
+import { useSession } from "next-auth/react";
 import { FormEvent, useContext, useState } from "react";
+import classes from "./profile-form.module.css";
 
 function ProfileForm() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +17,17 @@ function ProfileForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
-    //add client-side validation, e.g zod
+
+    const validation = changePasswordSchema.safeParse({
+      oldPassword,
+      newPassword,
+    });
+
+    if (!validation.success) {
+      const firstError = validation.error.errors[0]?.message;
+      showErrorNotification({ message: firstError || "Validation error" });
+      return;
+    }
 
     showNotification({
       title: "Please wait...",
@@ -52,7 +63,7 @@ function ProfileForm() {
         <input
           type="password"
           id="new-password"
-          autoComplete='new-password'
+          autoComplete="new-password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
