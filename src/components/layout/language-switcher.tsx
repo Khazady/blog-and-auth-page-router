@@ -1,17 +1,13 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function LanguageSwitcher() {
-  const router = useRouter();
-  const { locale, asPath } = router;
-
-  function toggleLanguage() {
-    const nextLocale = locale === "en" ? "ru" : "en";
-    router.push(asPath, asPath, { locale: nextLocale });
-  }
+  const { locale = "en", asPath } = useRouter();
+  const nextLocale = locale === "en" ? "ru" : "en";
 
   return (
-    <button onClick={toggleLanguage}>
-      {locale === "en" ? "RU" : "EN"}
-    </button>
+    <Link href={asPath} locale={nextLocale}>
+      {locale.toUpperCase()}
+    </Link>
   );
 }

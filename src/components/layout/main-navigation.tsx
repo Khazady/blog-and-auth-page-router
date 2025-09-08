@@ -22,13 +22,13 @@ export default function MainNavigation() {
       <nav>
         <ul>
           <li>
+            <LanguageSwitcher />
+          </li>
+          <li>
             <Link href="/posts">Posts</Link>
           </li>
           <li>
             <Link href="/contact">Contact</Link>
-          </li>
-          <li>
-            <LanguageSwitcher />
           </li>
           {!isSignedIn && !isLoading && (
             <li>
