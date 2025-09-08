@@ -1,6 +1,5 @@
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import LanguageSwitcher from "./language-switcher";
 import Logo from "./logo";
 import styles from "./main-navigation.module.css";
 
@@ -21,9 +20,6 @@ export default function MainNavigation() {
       </Link>
       <nav>
         <ul>
-          <li>
-            <LanguageSwitcher />
-          </li>
           <li>
             <Link href="/posts">Posts</Link>
           </li>

@@ -9,6 +9,22 @@
   padding: var(--size-4);
 }
 
+.content .languageSwitcher {
+  text-align: right;
+  margin-bottom: var(--size-4);
+
+  a {
+    font-weight: bold;
+    border: 1px solid white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  a:hover {
+    color: white;
+  }
+}
+
 .content p {
   color: var(--color-grey-800);
 }
