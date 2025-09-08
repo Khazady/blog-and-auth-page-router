@@ -11,14 +11,22 @@ const postsDirectoryPath = path.join(
   "posts",
 );
 
+export function getSlugFromFilename(filename: string, language: string) {
+  const withoutExt = removeFileExtension(filename);
+  const suffix = `.${language}`;
+  if (withoutExt.endsWith(suffix)) {
+    return withoutExt.slice(0, -suffix.length);
+  }
+  return withoutExt;
+}
+
 export function getPostsFilenames(language: string) {
   return fs
     .readdirSync(postsDirectoryPath)
     .filter((filename) => filename.endsWith(`.${language}.md`));
 }
 
-export function getPostData(postIdentifier: string, language: string) {
-  const postSlug = removeFileExtension(postIdentifier);
+export function getPostData(postSlug: string, language: string) {
   const filePath = path.join(postsDirectoryPath, `${postSlug}.${language}.md`);
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
@@ -32,8 +40,8 @@ export function getPostData(postIdentifier: string, language: string) {
 
 export function getAllPosts(language: string) {
   const postFiles = getPostsFilenames(language);
-
-  const allPosts = postFiles.map((file) => getPostData(file, language));
+  const slugs = postFiles.map((file) => getSlugFromFilename(file, language));
+  const allPosts = slugs.map((slug) => getPostData(slug, language));
 
   const sortedPosts = allPosts.sort((postA, postB) =>
     postA.date > postB.date ? -1 : 1,

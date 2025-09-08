@@ -1,9 +1,8 @@
 import PostContent from "@/components/posts/post-detail/post-content";
-import { getPostData, getPostsFilenames } from "@/lib/server/posts";
+import { getPostData, getPostsFilenames, getSlugFromFilename } from "@/lib/server/posts";
 import { PostType } from "@/lib/types/post";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { removeFileExtension } from "@/lib/utils";
 import Head from "next/head";
 
 interface Params extends ParsedUrlQuery {
@@ -49,7 +48,7 @@ export const getStaticPaths: GetStaticPaths<Params> = (context) => {
   const locales = context.locales || ["en"];
   const paths = locales.flatMap((locale) => {
     const postFilenames = getPostsFilenames(locale);
-    const slugs = postFilenames.map(removeFileExtension);
+    const slugs = postFilenames.map((file) => getSlugFromFilename(file, locale));
     return slugs.map((slug) => ({ params: { slug }, locale }));
   });
   return {

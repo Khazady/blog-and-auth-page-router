@@ -2,7 +2,11 @@ import { NotificationPartialType } from "@/store/notification-context";
 import { SafeParseReturnType } from "zod";
 
 export function removeFileExtension(filename: string): string {
-  return filename.split(".")[0];
+  const lastDotIndex = filename.lastIndexOf(".");
+  if (lastDotIndex === -1) {
+    return filename;
+  }
+  return filename.substring(0, lastDotIndex);
 }
 
 export function validateOrNotify<T>(
