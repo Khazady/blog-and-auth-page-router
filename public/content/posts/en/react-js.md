@@ -1,6 +1,6 @@
 ---
 title: React.js
-excerpt: React is the javascript library for web and native user interfaces
+excerpt: React is a JavaScript library for building web and native user interfaces.
 image: react.png
 isFeatured: true
 date: "2024-04-05"
@@ -8,12 +8,12 @@ date: "2024-04-05"
 
 # React
 
-## React vs Vanilla JS:
+## React vs. Vanilla JS:
 
-- React code is more readable (JSX = JS + HTML in 1 file)
+- React code is more readable (JSX = JS + HTML in one file)
 - Components
-- JS is imperative (буквально даёшь пошаговые инструкции)
-- React is declarative (описываешь что именно ты делаешь)
+- JS is imperative (you literally give step-by-step instructions)
+- React is declarative (you describe what you want to achieve)
 
 ```javascript
 // Imperative
@@ -29,44 +29,43 @@ element.addEventListener("click", function () {});
 
 ## Virtual DOM
 
-- Виртуальный DOM представляет собой упрощенные Javascript объекты по сравнению с настоящим DOM.
+- The virtual DOM represents simplified JavaScript objects compared to the real DOM.
 
 ## Reconciliation
 
-- Это процесс сверки старой и новой версий (снэпшота) Virtual DOM после изменения данных (например, массива, на основе которого отображаются элементы списка)
-- На основе этой сверки, React производит точечные изменения в реальном DOM.
-- В результате, пользователь видит обновление только измененного элемента списка, а не перерисовку всех элементов одновременно.
+- This is the process of comparing the old and new versions (snapshot) of the Virtual DOM after data changes (for example, an array used to render a list)
+- Based on this comparison, React performs targeted updates to the real DOM.
+- As a result, the user sees only the updated list item rather than all elements being re-rendered.
 
 ## Basic hooks
 
 ### useState
 
-- it's a local state
-- сравнивает предыдущее состоянии с новым и при необходимости вызывает ререндер той части UI которая от него зависит (в отличии от обычной переменной, которую мы вывели бы в JSX и изменили в event listener функции)
-- correct approach to change state `setState(prev => prev + 1)`
-- `useState(compute())` you can pass function to initial state param, if you need to compute initial value once, not on every render
+- Represents local component state.
+- Compares the previous and new values and, when needed, re-renders the UI parts that depend on it (unlike a regular variable changed inside an event listener).
+- Correct way to update state: `setState(prev => prev + 1)`.
+- `useState(compute())` lets you pass a function as the initial state so the value is computed only once.
 
 ### useRef
 
-- можно юзать как useState, **изменение которого не вызывает rerender**
-- можно как ссылку на dom element
+- Can be used like useState, but **changing it does not trigger a re-render**.
+- Can also store a reference to a DOM element.
 
 ### useContext
 
-- Нужен для избежания **“props drilling”**, когда мы вынуждены пробрасывать стейт через пропсы каждого уровня, даже там где этот стейт не нужен
-- TODO: React context vs state manager libs (Redux vs Zustand vs React-Query vs React Context)
+- Helps avoid **props drilling**, when you would otherwise pass state through every level of the component tree.
+- TODO: React context vs state management libraries (Redux vs Zustand vs React Query vs React Context)
 
 ### useCallback <span id="useCallback"></span>
 
-1. используется в дополнение к [React.memo](#React.memo) для функций передаваемых в дочернюю компоненту,
-   чтобы сохранить между ререндарами родителя ту же ссылку
+1. Used with [React.memo](#React.memo) for functions passed to child components to retain the same reference between parent re-renders.
 
 ### useMemo <span id="useMemo"></span>
 
-use cases:
+Use cases:
 
-1. аналогично useCallback, в дополнение к [React.memo](#React.memo) но для объектов, массивов и т.д.
-2. когда одно из состояний сложно вычисляется, а мы меняем другое состояние, при этом при ререндере пересчитывается сложное 1-ое
+1. Similar to useCallback but for objects, arrays, etc., used alongside [React.memo](#React.memo).
+2. When one state is expensive to compute and another state changes, the expensive state is still recomputed on every render.
 
 ```javascript
 function formatData() {
@@ -77,28 +76,27 @@ function formatData() {
 const formattedData = useMemo(formatData, [data]);
 ```
 
-## Optimisation
+## Optimization
 
 ### `key` attribute
 
-- Нужен для оптимизации обновления списка элементов, созданного с помощью метода `map`.
-- Если мы добавляем новый элемент в начало или середину массива,
-  React с использованием `key` сможет корректно сопоставить существующие элементы и обновить **только изменённые**,
-  избегая полной перерисовки всех элементов.
+- Helps optimize updating a list of elements created with `map`.
+- If we add a new element at the beginning or middle of the array,
+  React with `key` can match existing elements and update **only the changed** ones,
+  avoiding a full re-render.
 
 ### React.lazy
 
-- Нужен, когда хотим чтобы компонента не попадала в начальный бандл (собранный вебпаком файл из всех файлов проекта)
-- Начальная загрузка будет быстрее (бандл меньше), но юзер будет ждать, когда воспользуется компонентом в lazy
-- Такую компоненту нужно оборачивать в React.Suspect и в fallback указывать loader (бандл поделили на чанки)
+- Useful when you don't want a component in the initial bundle (the compiled file with all project modules).
+- Initial loading becomes faster because the bundle is smaller, but the user waits when the lazy component loads.
+- Wrap such components in `React.Suspense` and provide a loader in `fallback` (the bundle is split into chunks).
 
-### child components rerender optimization
+### Optimizing child component re-renders
 
-- Без использования PureComponent / shouldComponentUpdate / React.memo, **компоненты перерисовываются каждый раз,
-  когда их родитель перерисовывается, независимо от того, изменились ли их пропсы или нет**.
+- Without PureComponent / shouldComponentUpdate / React.memo, **components re-render every time their parent re-renders, regardless of prop changes**.
 
 ```javascript
-// UserName will rerender every time when button clicked
+// UserName will re-render every time the button is clicked
 <>
   <button onClick={() => setState((prev) => prev + 1)}>Add</button>
   <UserName name="John Doe" />
@@ -107,28 +105,27 @@ const formattedData = useMemo(formatData, [data]);
 
 #### PureComponent
 
-- when we extend from `PureComponent`, it compares new and old props & state, preventing rerender if they are the same
+- Extending from `PureComponent` compares new and old props and state, preventing re-renders when they match.
 
 #### shouldComponentUpdate(nextProps, nextState)
 
-- does the same, but in this lifecycle method we can implement a **custom comparison logic** of props & state
+- Provides the same optimization, but this lifecycle method allows **custom comparison logic** of props and state.
 
 #### HOC React.memo
 
-- does the same, but for func components and only for props
-- prevents rerender when props are the same
+- Offers the same optimization for functional components and only for props.
+- Prevents re-renders when props are the same.
 
 ```javascript
-// won't rerender when parent rerenders, only when props.name is changed
+// won't re-render when the parent re-renders, only when props.name changes
 const UserName = React.memo((props) => {
   return <div>{props.name}</div>;
 });
 ```
 
-- <span id="React.memo" style="color:red;font-size:25px;">!!!</span> React.memo / PureComponent умеет делает **только поверхностную сверку** (примитивы и ссылки)
-- Когда в пропс передан не примитивный тип данных, в дополнение к React.memo,
-  такие данные нужно их обернуть в [useMemo](#useMemo) / [useCallback](#useCallback)
-- Использование этих хуков сохраняет ссылки на функции и объекты между рендерами, что предотвращает ненужные перерисовки компонентов
+- <span id="React.memo" style="color:red;font-size:25px;">!!!</span> React.memo / PureComponent perform **only a shallow comparison** (primitives and references).
+- When a prop is non-primitive, wrap the data in [useMemo](#useMemo) / [useCallback](#useCallback) in addition to React.memo.
+- Using these hooks preserves references to functions and objects between renders, preventing unnecessary re-renders.
 
 ```javascript
 const user = useMemo(() => ({ name: "John Doe" }), []);
@@ -145,20 +142,19 @@ return (
 
 ### useLayoutEffect
 
-- Когда нужно сделать изменение стилей напрямую DOM дереве (ref.current.style.border = “1px solid black”)
-- и хотим чтобы они применились **до рендера - синхронно, а не после рендера - асинхронно, как в обычном useEffect**
+- Used when you need to change styles directly in the DOM tree (`ref.current.style.border = "1px solid black"`)
+- and want them applied **before paint—synchronously**, not after render as with regular useEffect
 
 ### useImperativeHandle
 
-- Когда нужно из родительской компоненты например очистить поля привязанные к локальному стейту дочерней
-- Через ссылку в переданную из родителя через `forwardRef` в дочернуюю expose-ятся методы, в которых происходят действия доступные только в дочерней,
-  а в родительской мы можем вызвать эти методы через ссылку
+- Useful when a parent component needs to clear fields tied to a child's local state, for example
+- Methods defined in the child are exposed via `forwardRef`, and the parent can call these methods using the reference
 
 ### useTransition
 
-- Используем когда есть сложный ререндеринг влияет на отзывчивость страницы.
-- С помощью него можно приоритизировать состояние которое влияет на отзывчивость (текст инпут, переключение между табами, таймлайн инпут ).
-- И понизить приоритетность изменения блокирующего состояния (результат пользовательского действия: рендеринг результатов фильтрация списка по инпуту, переключение контента в табе )
+- Used when heavy re-rendering affects page responsiveness.
+- It allows prioritizing state updates that affect responsiveness (text input, switching tabs, timeline input).
+- And lowering priority for blocking updates (rendering filtered list results, switching tab content).
 
 ```javascript
 const [input, setInput] = useState("");
@@ -166,36 +162,36 @@ const [list, setList] = useState([]);
 const [isPending, startTransition] = useTransition();
 
 function handleChange(e) {
-  setInput(e.target.value); // setting priority state like usually
+  setInput(e.target.value); // setting priority state like usual
   startTransition(() => {
-    const filteredValue = data.filter((item) => item); // some difficult filtering calculations
-    setList(filteredValue); // setting less priority state in startTransition
+    const filteredValue = data.filter((item) => item); // some heavy filtering calculations
+    setList(filteredValue); // setting less priority state inside startTransition
   });
 }
 ```
 
-# React-connected important libs
+# Important libraries related to React
 
-## React-router-dom V6
+## React-router-dom v6
 
-TODO: Через роутер можно фетчить дату
+TODO: Use the router to fetch data
 
 ## Redux
 
-- redux хранит state объектов в едином store
-- чтобы изменить state нужно отправить action, action попадает в reducer, reducer описывает как state будет изменен
-- изменения только с помощью ЧИСТОЙ функции reducer - иммутабельные, копируем и подменяем
-- ACTION - plain object { type, payload }
-- методы dispatch(action), getState(), subscribe(listener) принадлежит store (store.dispatch)
-- mstp селектит нужный для компоненты стейт и отслеживает изменения в выбранных свойствах
-- FLOW - call dispatch(action) -> reducer(current state, action) -> returns new state instance
+- Redux stores the state of objects in a single store
+- To change the state, you dispatch an action; the action goes to a reducer, and the reducer describes how the state changes
+- Changes happen only through a **pure** reducer function—immutable copies and replacements
+- ACTION — plain object { type, payload }
+- Methods `dispatch(action)`, `getState()`, `subscribe(listener)` belong to the store (`store.dispatch`)
+- mstp selects the part of the state needed for the component and tracks changes in selected properties
+- FLOW — call dispatch(action) -> reducer(current state, action) -> returns new state instance
 
 ## Redux-toolkit
 
-- Не используем ActionCreators,
-- используем ThunkCreator.fulfilled/rejected успешные/неуспешные случаи выполнения санок
-- настраиваем санки не на диспатч нужного AC, а на return нужных данных/rejectedWithValue(error)
+- Do not use ActionCreators
+- Use `ThunkCreator.fulfilled/rejected` for successful/unsuccessful cases of thunks
+- Configure thunks not to dispatch the necessary AC, but to return data/rejectedWithValue(error)
 
 ## Redux-thunk
 
-- Middleware for the Redux, that allows to dispatch async actions (thunks)
+- Middleware for Redux that allows dispatching async actions (thunks)

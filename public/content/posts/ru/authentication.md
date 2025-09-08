@@ -1,6 +1,6 @@
 ---
-title: Authentication
-excerpt: This article explores the concepts of authentication and authorization, comparing JWT and session-based authentication methods. Learn how each method works, their advantages, and their potential security risks.
+title: "Аутентификация"
+excerpt: "Эта статья рассматривает понятия аутентификации и авторизации, сравнивая JWT и аутентификацию на основе сессий. Узнайте, как работает каждый подход, их преимущества и потенциальные риски безопасности."
 image: authentication.jpeg
 isFeatured: false
 date: "2024-04-05"
@@ -8,30 +8,30 @@ date: "2024-04-05"
 
 ## JWT (JSON Web Token)
 
-JWT is a compact, URL-safe means of representing claims to be transferred between two parties.
-It is often used for authentication and information exchange.
+JWT — компактный, безопасный для URL способ представления утверждений, передаваемых между двумя сторонами.
+Чаще всего используется для аутентификации и обмена информацией.
 
-### Workflow!
+### Как работает
 
-1.  api/login > creates JWT
-2.  save in localStorage < response with JWT
-3.  request with signed JWT (placed in header) > validate JWT
+1. `api/login` → создаёт JWT
+2. сохранить в `localStorage` ← ответ с JWT
+3. запрос с подписанным JWT (в заголовке) → проверка JWT
 
 ### SPA
 
-[SPA and JWT.png](jwt.png)
+[SPA и JWT.png](jwt.png)
 
-## Session
+## Сессия
 
 FE <> DB
 
-1.  /login > store session 
-2.  save cookie < response (session id)
-3.  request with cookie > check session
-4.  < response
+1. `/login` → сохранить сессию
+2. сохранить куку ← ответ (ID сессии)
+3. запрос с кукой → проверка сессии
+4. ← ответ
 
-Cons:
+Минусы:
 
-Vulnerable for CSRF - cross-site-request-forgery
+Уязвимо к CSRF — подделке межсайтовых запросов
 
-Requires storage
+Требует серверного хранилища

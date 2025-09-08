@@ -1,12 +1,12 @@
 ---
-title: "Design Patterns"
+title: "Паттерны проектирования"
 date: "2024-04-25"
 image: "patterns.png"
-excerpt: "In software engineering, a design pattern is a general repeatable solution to a commonly occurring problem in software design."
+excerpt: "В разработке программного обеспечения паттерн проектирования — это общее решение повторяющейся проблемы в дизайне программ."
 isFeatured: false
 ---
 
-### Singleton
+### Одиночка
 
 ```typescript
 class Database {
@@ -24,4 +24,4 @@ class Database {
 }
 ```
 
-## поведенческие
+## Поведенческие
