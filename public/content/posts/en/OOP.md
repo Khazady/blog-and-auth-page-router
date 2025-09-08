@@ -37,10 +37,10 @@ At the language level, privacy is implemented with the `#` symbol:
 
 ```js
 class Person {
-    #_privateField: 'value'
-    #_privateMethod () {}
+  #_privateField = "value";
+  #_privateMethod() {}
 }
-new Person()._privateField// undefined
+new Person().#_privateField; // SyntaxError
 ```
 
 ### Inheritance
@@ -115,5 +115,5 @@ class Talent extends User {
 
 const john = new Talent("John", "Smith", 30);
 //! 2. encapsulation (the private field isn't accessible outside the Talent class)
-john.#age; // undefined
+john.#age; // SyntaxError
 ```

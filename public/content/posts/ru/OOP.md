@@ -37,10 +37,10 @@ isFeatured: true
 
 ```js
 class Person {
-    #_privateField: 'value'
-    #_privateMethod () {}
+  #_privateField = "value";
+  #_privateMethod() {}
 }
-new Person()._privateField// undefined
+new Person().#_privateField; // SyntaxError
 ```
 
 ### Наследование
@@ -115,5 +115,5 @@ class Talent extends User {
 
 const john = new Talent("John", "Smith", 30);
 //! 2. инкапсуляция (приватное поле недоступно вне класса Talent)
-john.#age; // undefined
+john.#age; // SyntaxError
 ```

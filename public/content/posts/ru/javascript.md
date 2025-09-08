@@ -96,7 +96,7 @@ john = null; // перезаписываем ссылку на объект
 
 ### Hoisting - поднятие
 
-Декларация **функции и var** поднимается в начало кода со значением `undefined`
+При поднятии (hoisting) декларации `var` переменных поднимаются и инициализируются значением `undefined`, а объявления функций поднимаются вместе со своей реализацией
 
 **do hoist**:
 
@@ -176,7 +176,7 @@ const clone = JSON.parse(JSON.stringify(originalObj));
 >
 > 2. Recursive copying implementation
 > 3. `lodash.deepClone`
-> 4. `window.structuredClonse` (modern browsers only)
+> 4. `window.structuredClone` (modern browsers only)
 >
 > - <span style="color:red;font-size:25px;">!!!</span> structuredClone can't copy methods
 
