@@ -115,5 +115,5 @@ class Talent extends User {
 
 const john = new Talent("John", "Smith", 30);
 //! 2. encapsulation (the private field isn't accessible outside the Talent class)
-john.#age; // undefined
+john.#age; // SyntaxError
 ```

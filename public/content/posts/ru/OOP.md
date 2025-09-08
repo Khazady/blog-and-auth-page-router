@@ -115,5 +115,5 @@ class Talent extends User {
 
 const john = new Talent("John", "Smith", 30);
 //! 2. инкапсуляция (приватное поле недоступно вне класса Talent)
-john.#age; // undefined
+john.#age; // SyntaxError
 ```
