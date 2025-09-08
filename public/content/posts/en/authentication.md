@@ -8,14 +8,14 @@ date: "2024-04-05"
 
 ## JWT (JSON Web Token)
 
-JWT is a compact, URL-safe means of representing claims to be transferred between two parties.
+JWT is a compact, URL-safe way to represent claims transferred between two parties.
 It is often used for authentication and information exchange.
 
-### Workflow!
+### Workflow
 
-1.  api/login > creates JWT
-2.  save in localStorage < response with JWT
-3.  request with signed JWT (placed in header) > validate JWT
+1. `api/login` → creates a JWT
+2. store in `localStorage` ← response with JWT
+3. request with the signed JWT in the header → validate JWT
 
 ### SPA
 
@@ -25,13 +25,13 @@ It is often used for authentication and information exchange.
 
 FE <> DB
 
-1.  /login > store session 
-2.  save cookie < response (session id)
-3.  request with cookie > check session
-4.  < response
+1. `/login` → store session
+2. save cookie ← response (session id)
+3. request with cookie → check session
+4. ← response
 
 Cons:
 
-Vulnerable for CSRF - cross-site-request-forgery
+Vulnerable to CSRF (cross-site request forgery)
 
-Requires storage
+Requires server-side storage

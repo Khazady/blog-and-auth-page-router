@@ -1,29 +1,29 @@
 ---
-title: Next.js framework
-excerpt: Next.js is a React framework. Yes, React already is a library for JS. So it's already an extra layer on top of JS
+title: "Фреймворк Next.js"
+excerpt: "Next.js — это фреймворк для React. Да, React уже является библиотекой для JS, так что это ещё один слой поверх JS"
 image: next.webp
 isFeatured: false
 date: "2024-02-22"
 ---
 
-## NextJS Key Features:
+## Ключевые особенности Next.js:
 
-### 1. **Pre-rendering pages on the server side:**
+### 1. **Предварительный рендеринг страниц на стороне сервера:**
 
-- This feature eliminates the **initial loading** state by rendering pages on the server side.  
-   React components load data from the API only after they have been rendered, preventing issues such as flickering loaders.
-- Pre-rendering improves SEO, as search engine crawlers can access the page content.  
-  Since React is built with JavaScript inside a `<div id="root"/>`, crawlers cannot read HTML. Therefore, if you have public pages with a lot of content that need to be found through search engines, NextJS is essential.
+- Эта возможность устраняет состояние **первой загрузки**, рендеря страницы на стороне сервера.
+  Компоненты React получают данные из API только после того, как были отрендерены, что предотвращает появление мигающих загрузчиков.
+- Предварительный рендеринг улучшает SEO, поскольку поисковые боты видят содержимое страницы.
+  Поскольку React строит разметку внутри `<div id="root"/>`, боты не могут прочитать HTML. Поэтому если у вас есть публичные страницы с большим количеством контента, которые нужно находить через поисковики, Next.js незаменим.
 
-### 2. **#File-based Routing:**
+### 2. **Маршрутизация на основе файлов (#File-based Routing):**
 
-    - Unlike React, which lacks a built-in routing solution, NextJS provides a straightforward concept of routing, similar to basic HTML web development.
-    - In this approach, each `.html` file represents a page, and the filename serves as its path.
-    - NextJS supports features such as nested routes, catch-all routes, and dynamic routes.
-    - **Off-topic:** Routing involves changing screen content based on the URL without sending a request to a server, thereby preventing the default browser behavior of page reload when the URL changes (e.g., with `window.location.href = "url"`).
+- В отличие от React, который не имеет встроенного решения для роутинга, Next.js предлагает простую концепцию, напоминающую базовую разработку сайтов на чистом HTML.
+- В этом подходе каждый файл `.html` представляет страницу, а имя файла служит её путём.
+- Next.js поддерживает вложенные, catch-all и динамические маршруты.
+- **К слову:** Роутинг — это изменение содержимого экрана в зависимости от URL без отправки запроса на сервер, что предотвращает стандартное обновление страницы при смене адреса (например, при `window.location.href = "url"`).
 
-### 3. **Full Stack Capabilities:**
+### 3. **Full Stack возможности:**
 
-    - NextJS allows for the easy addition of backend (server-side) code to your project through special pre-rendering page functions (e.g., static/serverSide Props).
-    - It also facilitates the creation of custom APIs with file-based endpoint addresses, where you can write backend code as needed.
-    - As a result, there's no need to build a standalone REST API backend project.
+- Next.js позволяет легко добавлять серверный код в проект через специальные функции предварительного рендеринга (например, static/serverSide Props).
+- Также можно создавать собственные API с адресами эндпоинтов на основе файлов, где по необходимости можно писать бэкенд-код.
+- В результате нет необходимости собирать отдельный проект REST API.

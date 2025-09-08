@@ -24,4 +24,4 @@ class Database {
 }
 ```
 
-## поведенческие
+## Behavioral patterns

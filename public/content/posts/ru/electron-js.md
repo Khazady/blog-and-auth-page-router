@@ -2,19 +2,19 @@
 title: "Electron.js"
 date: "2024-04-20"
 image: "electron.webp"
-excerpt: "Electron is a framework for building desktop applications using JavaScript, HTML, and CSS."
+excerpt: "Electron — это фреймворк для создания настольных приложений с использованием JavaScript, HTML и CSS."
 isFeatured: false
 ---
 
 # Electron.js
 
-## Processes
+## Процессы
 
-Electron is divided into 2 processes: main and renderer.
+Electron делится на 2 процесса: основной (main) и рендерер (renderer).
 
-1. The **main** process has access to Node API and Electron Main Modules.
-2. The **renderer** process is the browser process, which is further divided into:
-   1. the frontend framework
-   2. preload.ts script
+1. **Main** имеет доступ к Node API и модулям Electron.
+2. **Renderer** — это браузерный процесс, который делится на:
+   1. фронтенд-фреймворк;
+   2. скрипт preload.ts.
 
 ![main-process-and-frontend-processes](electron-processes.png)

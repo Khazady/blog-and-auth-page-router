@@ -1,6 +1,6 @@
 ---
-title: Network
-excerpt: Next.js is a React framework. Yes, React already is a library for JS. So it's already an extra layer on top of JS
+title: "Сеть"
+excerpt: "Основы сетевого взаимодействия: REST API, CDN, DNS и ключевые аспекты безопасности."
 image: network.webp
 isFeatured: false
 date: "2024-05-17"
@@ -8,24 +8,37 @@ date: "2024-05-17"
 
 ## Rest(ful) API
 
+REST API использует стандартные HTTP-методы — GET, POST, PUT и DELETE — для работы с ресурсами.
+
 ## CDN
+
+Сеть доставки контента кеширует статические файлы на серверах по всему миру, снижая задержку для пользователей.
 
 ## DNS
 
-## Security
+Система доменных имён преобразует удобочитаемые домены в IP-адреса.
+
+## Безопасность
 
 ### CORS
+Cross-Origin Resource Sharing управляет тем, какие домены имеют доступ к ресурсам API.
 
 ### CSRF
+Cross-Site Request Forgery заставляет авторизованного пользователя выполнять нежелательные действия.
 
 ### XSS
+Cross-Site Scripting внедряет вредоносные скрипты на доверенные сайты.
 
 ### HTTP(S)
+HTTPS добавляет шифрование поверх HTTP для безопасного обмена данными.
 
-### Man in the middle
+### Атака «человек посередине»
+Злоумышленник перехватывает трафик между двумя участниками.
 
-## Common questions
+## Частые вопросы
 
-### После введения URL в адресную строку
+### После ввода URL в адресную строку
 
-TODO: DNS > IP > html > css > js > гидрация и т.д.
+1. Браузер через DNS получает IP-адрес домена.
+2. Загружает HTML, CSS и JavaScript.
+3. Страница рендерится и гидратируется.

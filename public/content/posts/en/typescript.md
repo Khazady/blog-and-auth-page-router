@@ -2,13 +2,13 @@
 title: "TypeScript"
 date: "2024-04-18"
 image: "typescript.png"
-excerpt: "Let's say that these are my notes about Typescript."
+excerpt: "Notes on TypeScript."
 isFeatured: true
 ---
 
-## Type VS Interface
+## Type vs Interface
 
-**Type** может быть примитивом, union и tuple (кортеж), нельзя изменить после создания
+**Type** can be a primitive, a union, or a tuple. It cannot be changed after creation
 
 ```typescript
 // primitive
@@ -21,7 +21,7 @@ type PartialPoint = PartialPointX | PartialPointY;
 type Data = [number, string];
 ```
 
-**Interface** только объектом, его **повторные декларации объединяются** ([declaration merging](#declaration-merging))
+**Interface** only describes an object, and **repeated declarations are merged** ([declaration merging](#declaration-merging))
 
 ### Extension & Intersection
 
@@ -34,7 +34,7 @@ type Circle = Shape & { role: string };
 
 #### Extension
 
-Тоже самое, только синтаксис ближе к ООП
+Same as intersection, but the syntax is closer to OOP
 
 ```typescript
 interface Shape {
@@ -47,7 +47,7 @@ interface Circle extends Shape {
 
 ### Implements
 
-В implements можно вставить как type так и interface
+Both type and interface can be used in implements
 
 ```typescript
 interface Point {
@@ -59,7 +59,7 @@ class SomePoint implements Point {
   y = 2;
 }
 
-//same
+// same
 type Point2 = {
   x: number;
   y: number;
@@ -73,9 +73,9 @@ class SomePoint2 implements Point2 {
 
 ### Declaration merging <span id="declaration-merging"/>
 
-> Повторные декларации interface объединяются
+> Repeated interface declarations are merged
 
-В отличие от **type, он не может** быть изменён после создания
+Unlike a **type**, it cannot be changed after creation
 
 ```typescript
 // These two declarations become:
@@ -92,16 +92,16 @@ const point: Point = { x: 1, y: 2 };
 
 ## Abstract classes
 
-Это смесь interface и class: мы задаём абстрактные свойства и методы, которые должны быть реализованы
-в классе наследнике, как и в интерфейс,
+It's a mixture of interface and class: we declare abstract properties and methods that must be implemented
+in the derived class, like in an interface,
 
-НО в этой конструкции также позволено писать и общую для детей логику.
+BUT this construct also allows writing shared logic for children.
 [link to OOP article](OOP#abstract-class)
 
 ## Generic type
 
-Это динамическая <тип-переменная>, что-то вроде параметра функции,
-который можно использовать в декларации типов, повышая его реюзабельность
+This is a dynamic <type-variable>, similar to a function parameter,
+which can be used in type declarations, increasing reusability
 
 ```typescript
 type ListResponse<T> = {
@@ -127,7 +127,7 @@ function fn(param: number | string | Date) {
 ```
 
 2. Predicate `is`:
-   Помогает TS-у лучше определять тип значения, которое проверяется функциями наподобие - isString, isUser
+   Helps TypeScript better determine the type of a value that is checked by functions like isString, isUser
 
 ```typescript
 const isAxiosError = (error: unknown | AxiosError): error is AxiosError => {
@@ -145,5 +145,5 @@ const isAxiosError = (error: unknown | AxiosError): error is AxiosError => {
 
 ## Utility Types
 
-Это что-то вроде встроенных 'функций' для манипулирования типами
-Напр. Partial, Pick, Omit, ReturnType, ReadOnly<PropsType> и т.д.
+These are like built-in "functions" for manipulating types.
+For example: Partial, Pick, Omit, ReturnType, ReadOnly<PropsType>, etc.

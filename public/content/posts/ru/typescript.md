@@ -2,13 +2,13 @@
 title: "TypeScript"
 date: "2024-04-18"
 image: "typescript.png"
-excerpt: "Let's say that these are my notes about Typescript."
+excerpt: "Заметки о TypeScript."
 isFeatured: true
 ---
 
-## Type VS Interface
+## Type vs Interface
 
-**Type** может быть примитивом, union и tuple (кортеж), нельзя изменить после создания
+**Type** может быть примитивом, union или tuple (кортеж). Нельзя изменить после создания.
 
 ```typescript
 // primitive
@@ -21,7 +21,7 @@ type PartialPoint = PartialPointX | PartialPointY;
 type Data = [number, string];
 ```
 
-**Interface** только объектом, его **повторные декларации объединяются** ([declaration merging](#declaration-merging))
+**Interface** описывает только объект, и **повторные объявления объединяются** ([declaration merging](#declaration-merging))
 
 ### Extension & Intersection
 
@@ -34,7 +34,7 @@ type Circle = Shape & { role: string };
 
 #### Extension
 
-Тоже самое, только синтаксис ближе к ООП
+То же самое, только синтаксис ближе к ООП.
 
 ```typescript
 interface Shape {
@@ -47,7 +47,7 @@ interface Circle extends Shape {
 
 ### Implements
 
-В implements можно вставить как type так и interface
+В `implements` можно вставить как type, так и interface.
 
 ```typescript
 interface Point {
@@ -59,7 +59,7 @@ class SomePoint implements Point {
   y = 2;
 }
 
-//same
+// same
 type Point2 = {
   x: number;
   y: number;
@@ -73,12 +73,12 @@ class SomePoint2 implements Point2 {
 
 ### Declaration merging <span id="declaration-merging"/>
 
-> Повторные декларации interface объединяются
+> Повторные объявления интерфейса объединяются.
 
-В отличие от **type, он не может** быть изменён после создания
+В отличие от **type**, он не может быть изменён после создания.
 
 ```typescript
-// These two declarations become:
+// Эти две декларации становятся:
 // interface Point { x: number; y: number; }
 interface Point {
   x: number;
@@ -90,18 +90,18 @@ interface Point {
 const point: Point = { x: 1, y: 2 };
 ```
 
-## Abstract classes
+## Абстрактные классы
 
 Это смесь interface и class: мы задаём абстрактные свойства и методы, которые должны быть реализованы
-в классе наследнике, как и в интерфейс,
+в классе-наследнике, как и в интерфейсе,
 
-НО в этой конструкции также позволено писать и общую для детей логику.
+НО в этой конструкции также позволено писать общую для детей логику.
 [link to OOP article](OOP#abstract-class)
 
 ## Generic type
 
 Это динамическая <тип-переменная>, что-то вроде параметра функции,
-который можно использовать в декларации типов, повышая его реюзабельность
+которую можно использовать в декларации типов, повышая его реюзабельность.
 
 ```typescript
 type ListResponse<T> = {
@@ -114,7 +114,7 @@ type ListResponse<T> = {
 
 ## Type Guards
 
-1. `typeof` & `instanceof` operators:
+1. Операторы `typeof` и `instanceof`:
 
 ```typescript
 function fn(param: number | string | Date) {
@@ -126,8 +126,8 @@ function fn(param: number | string | Date) {
 }
 ```
 
-2. Predicate `is`:
-   Помогает TS-у лучше определять тип значения, которое проверяется функциями наподобие - isString, isUser
+2. Предикат `is`:
+   Помогает TS лучше определять тип значения, которое проверяется функциями наподобие isString, isUser.
 
 ```typescript
 const isAxiosError = (error: unknown | AxiosError): error is AxiosError => {
@@ -135,8 +135,8 @@ const isAxiosError = (error: unknown | AxiosError): error is AxiosError => {
 };
 ```
 
-3. `in` operator:
-   checks if field exists in object
+3. Оператор `in`:
+   проверяет, существует ли поле в объекте
 
 ```typescript
 "house" in { name: "test", house: { parts: "roof" } }; // => true
@@ -145,5 +145,5 @@ const isAxiosError = (error: unknown | AxiosError): error is AxiosError => {
 
 ## Utility Types
 
-Это что-то вроде встроенных 'функций' для манипулирования типами
-Напр. Partial, Pick, Omit, ReturnType, ReadOnly<PropsType> и т.д.
+Это что-то вроде встроенных «функций» для манипулирования типами.
+Например: Partial, Pick, Omit, ReturnType, ReadOnly<PropsType> и т.д.
