@@ -4,30 +4,20 @@ import matter from "gray-matter";
 import { PostType } from "@/lib/types/post";
 import { removeFileExtension } from "@/lib/utils";
 
-const postsDirectoryPath = path.join(
-  process.cwd(),
-  "public",
-  "content",
-  "posts",
-);
+const postsRootPath = path.join(process.cwd(), "public", "content", "posts");
 
-export function getSlugFromFilename(filename: string, language: string) {
-  const withoutExt = removeFileExtension(filename);
-  const suffix = `.${language}`;
-  if (withoutExt.endsWith(suffix)) {
-    return withoutExt.slice(0, -suffix.length);
-  }
-  return withoutExt;
+function getPostsDirectory(language: string) {
+  return path.join(postsRootPath, language);
 }
 
 export function getPostsFilenames(language: string) {
   return fs
-    .readdirSync(postsDirectoryPath)
-    .filter((filename) => filename.endsWith(`.${language}.md`));
+    .readdirSync(getPostsDirectory(language))
+    .filter((filename) => filename.endsWith(".md"));
 }
 
 export function getPostData(postSlug: string, language: string) {
-  const filePath = path.join(postsDirectoryPath, `${postSlug}.${language}.md`);
+  const filePath = path.join(getPostsDirectory(language), `${postSlug}.md`);
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
   const postData = {
@@ -40,7 +30,7 @@ export function getPostData(postSlug: string, language: string) {
 
 export function getAllPosts(language: string) {
   const postFiles = getPostsFilenames(language);
-  const slugs = postFiles.map((file) => getSlugFromFilename(file, language));
+  const slugs = postFiles.map((file) => removeFileExtension(file));
   const allPosts = slugs.map((slug) => getPostData(slug, language));
 
   const sortedPosts = allPosts.sort((postA, postB) =>
