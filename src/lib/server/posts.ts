@@ -11,14 +11,15 @@ const postsDirectoryPath = path.join(
   "posts",
 );
 
-export function getPostsFilenames() {
-  return fs.readdirSync(postsDirectoryPath)
-    .filter(filename => filename !== '.DS_Store');
+export function getPostsFilenames(language: string) {
+  return fs
+    .readdirSync(postsDirectoryPath)
+    .filter((filename) => filename.endsWith(`.${language}.md`));
 }
 
-export function getPostData(postIdentifier: string) {
+export function getPostData(postIdentifier: string, language: string) {
   const postSlug = removeFileExtension(postIdentifier);
-  const filePath = path.join(postsDirectoryPath, `${postSlug}.md`);
+  const filePath = path.join(postsDirectoryPath, `${postSlug}.${language}.md`);
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
   const postData = {
@@ -29,10 +30,10 @@ export function getPostData(postIdentifier: string) {
   return postData as PostType;
 }
 
-export function getAllPosts() {
-  const postFiles = getPostsFilenames();
+export function getAllPosts(language: string) {
+  const postFiles = getPostsFilenames(language);
 
-  const allPosts = postFiles.map(getPostData);
+  const allPosts = postFiles.map((file) => getPostData(file, language));
 
   const sortedPosts = allPosts.sort((postA, postB) =>
     postA.date > postB.date ? -1 : 1,
@@ -41,8 +42,8 @@ export function getAllPosts() {
   return sortedPosts;
 }
 
-export function getFeaturedPosts() {
-  const allPosts = getAllPosts();
+export function getFeaturedPosts(language: string) {
+  const allPosts = getAllPosts(language);
   const featuredPosts = allPosts.filter((post) => post.isFeatured);
 
   return featuredPosts;

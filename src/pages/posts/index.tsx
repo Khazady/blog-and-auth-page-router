@@ -22,8 +22,8 @@ export default function AllPostsPage({ posts }: PropsType) {
   );
 }
 
-export function getStaticProps() {
-  const allPosts = getAllPosts();
+export function getStaticProps({ locale }: { locale: string }) {
+  const allPosts = getAllPosts(locale);
   return {
     props: {
       posts: allPosts,

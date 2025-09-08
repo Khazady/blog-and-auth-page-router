@@ -5,14 +5,16 @@ image: authentication.jpeg
 isFeatured: false
 date: "2024-04-05"
 ---
+
 ## JWT (JSON Web Token)
+
 JWT is a compact, URL-safe means of representing claims to be transferred between two parties.
 It is often used for authentication and information exchange.
 
 ### Workflow!
 
 1.  api/login > creates JWT
-2.  save in localStorage < response with JWT 
+2.  save in localStorage < response with JWT
 3.  request with signed JWT (placed in header) > validate JWT
 
 ### SPA

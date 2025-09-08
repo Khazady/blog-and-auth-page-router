@@ -5,9 +5,11 @@ image: "electron.webp"
 excerpt: "Electron is a framework for building desktop applications using JavaScript, HTML, and CSS."
 isFeatured: false
 ---
+
 # Electron.js
 
 ## Processes
+
 Electron is divided into 2 processes: main and renderer.
 
 1. The **main** process has access to Node API and Electron Main Modules.
@@ -16,4 +18,3 @@ Electron is divided into 2 processes: main and renderer.
    2. preload.ts script
 
 ![main-process-and-frontend-processes](electron-processes.png)
-

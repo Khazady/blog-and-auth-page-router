@@ -5,10 +5,15 @@ image: network.webp
 isFeatured: false
 date: "2024-05-17"
 ---
+
 ## Rest(ful) API
+
 ## CDN
+
 ## DNS
+
 ## Security
+
 ### CORS
 
 ### CSRF
@@ -16,9 +21,11 @@ date: "2024-05-17"
 ### XSS
 
 ### HTTP(S)
+
 ### Man in the middle
 
-
 ## Common questions
-### После введения URL в адресную строку 
+
+### После введения URL в адресную строку
+
 TODO: DNS > IP > html > css > js > гидрация и т.д.

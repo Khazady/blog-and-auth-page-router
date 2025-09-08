@@ -7,17 +7,17 @@ isFeatured: false
 ---
 
 ### Singleton
-```typescript
 
+```typescript
 class Database {
   url: string;
-  static #_instance: Database
-  
+  static #_instance: Database;
+
   constructor() {
-    if(Database.#_instance) {
+    if (Database.#_instance) {
       return Database.#_instance;
     } else {
-      this.url = Math.random()
+      this.url = Math.random();
       Database.#_instance = this;
     }
   }

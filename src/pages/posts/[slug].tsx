@@ -27,7 +27,7 @@ const PostDetailPage: NextPage<PropsType> = ({ post }) => {
 };
 
 export const getStaticProps: GetStaticProps<PropsType, Params> = (context) => {
-  const { params } = context;
+  const { params, locale = "en" } = context;
 
   if (!params) {
     return {
@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps<PropsType, Params> = (context) => {
     };
   }
 
-  const postData = getPostData(params.slug);
+  const postData = getPostData(params.slug, locale);
   return {
     props: {
       post: postData,
@@ -46,9 +46,12 @@ export const getStaticProps: GetStaticProps<PropsType, Params> = (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = (context) => {
-  const postFilenames = getPostsFilenames();
-  const slugs = postFilenames.map(removeFileExtension);
-  const paths = slugs.map((slug) => ({ params: { slug } }));
+  const locales = context.locales || ["en"];
+  const paths = locales.flatMap((locale) => {
+    const postFilenames = getPostsFilenames(locale);
+    const slugs = postFilenames.map(removeFileExtension);
+    return slugs.map((slug) => ({ params: { slug }, locale }));
+  });
   return {
     paths,
     // since app will not have a lot of posts, it's not a problem to prerender them all
