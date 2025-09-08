@@ -7,6 +7,7 @@ isFeatured: true
 ---
 
 ## Type VS Interface
+
 **Type** может быть примитивом, union и tuple (кортеж), нельзя изменить после создания
 
 ```typescript
@@ -23,25 +24,31 @@ type Data = [number, string];
 **Interface** только объектом, его **повторные декларации объединяются** ([declaration merging](#declaration-merging))
 
 ### Extension & Intersection
+
 #### Intersection
+
 ```typescript
-type Shape = { color: string }
-type Circle = Shape & {role: string}
+type Shape = { color: string };
+type Circle = Shape & { role: string };
 ```
 
 #### Extension
+
 Тоже самое, только синтаксис ближе к ООП
+
 ```typescript
-interface Shape { 
+interface Shape {
   color: string;
 }
-interface Circle extends Shape { 
+interface Circle extends Shape {
   radius: number;
 }
 ```
 
 ### Implements
+
 В implements можно вставить как type так и interface
+
 ```typescript
 interface Point {
   x: number;
@@ -65,19 +72,26 @@ class SomePoint2 implements Point2 {
 ```
 
 ### Declaration merging <span id="declaration-merging"/>
->Повторные декларации interface объединяются
+
+> Повторные декларации interface объединяются
 
 В отличие от **type, он не может** быть изменён после создания
+
 ```typescript
 // These two declarations become:
 // interface Point { x: number; y: number; }
-interface Point { x: number; }
-interface Point { y: number; }
+interface Point {
+  x: number;
+}
+interface Point {
+  y: number;
+}
 
 const point: Point = { x: 1, y: 2 };
 ```
 
 ## Abstract classes
+
 Это смесь interface и class: мы задаём абстрактные свойства и методы, которые должны быть реализованы
 в классе наследнике, как и в интерфейс,
 
@@ -85,8 +99,10 @@ const point: Point = { x: 1, y: 2 };
 [link to OOP article](OOP#abstract-class)
 
 ## Generic type
+
 Это динамическая <тип-переменная>, что-то вроде параметра функции,
 который можно использовать в декларации типов, повышая его реюзабельность
+
 ```typescript
 type ListResponse<T> = {
   count: number;
@@ -99,30 +115,35 @@ type ListResponse<T> = {
 ## Type Guards
 
 1. `typeof` & `instanceof` operators:
+
 ```typescript
 function fn(param: number | string | Date) {
-  if (typeof param === 'string') {
-    param.slice()
+  if (typeof param === "string") {
+    param.slice();
   } else if (param instanceof Date) {
-    param.getTime()
+    param.getTime();
   }
 }
 ```
+
 2. Predicate `is`:
-Помогает TS-у лучше определять тип значения, которое проверяется функциями наподобие - isString, isUser
+   Помогает TS-у лучше определять тип значения, которое проверяется функциями наподобие - isString, isUser
+
 ```typescript
 const isAxiosError = (error: unknown | AxiosError): error is AxiosError => {
   return axios.isAxiosError(error);
-}
+};
 ```
+
 3. `in` operator:
-checks if field exists in object
+   checks if field exists in object
+
 ```typescript
 "house" in { name: "test", house: { parts: "roof" } }; // => true
 "house" in { name: "test" }; // => false
 ```
 
 ## Utility Types
+
 Это что-то вроде встроенных 'функций' для манипулирования типами
 Напр. Partial, Pick, Omit, ReturnType, ReadOnly<PropsType> и т.д.
-
