@@ -1,7 +1,8 @@
-import Link from "next/link";
-import styles from "./main-navigation.module.css";
-import Logo from "./logo";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import LanguageSwitcher from "./language-switcher";
+import Logo from "./logo";
+import styles from "./main-navigation.module.css";
 
 export default function MainNavigation() {
   const { data: session, status } = useSession();
@@ -25,6 +26,9 @@ export default function MainNavigation() {
           </li>
           <li>
             <Link href="/contact">Contact</Link>
+          </li>
+          <li>
+            <LanguageSwitcher />
           </li>
           {!isSignedIn && !isLoading && (
             <li>
