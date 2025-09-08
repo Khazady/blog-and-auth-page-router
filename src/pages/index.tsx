@@ -24,8 +24,8 @@ function HomePage({ posts }: PropsType) {
   );
 }
 
-export function getStaticProps() {
-  const featuredPosts = getFeaturedPosts();
+export function getStaticProps({ locale }: { locale: string }) {
+  const featuredPosts = getFeaturedPosts(locale);
   return {
     props: {
       posts: featuredPosts,
