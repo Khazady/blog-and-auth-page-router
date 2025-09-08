@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Blog and Auth Page Router
+
+A personal blog with email/password authentication built with the Next.js **pages** router. Posts are written in Markdown, rendered with syntax highlighting, and the site includes a profile page and contact form. The interface supports English and Russian locales.
+
+## Live Demo
+
+Deployed on Vercel: https://your-vercel-deployment.vercel.app <!-- replace with your deployed URL -->
+
+## Features
+
+- User registration and login using NextAuth Credentials provider
+- Blog posts written in Markdown and highlighted with `react-syntax-highlighter`
+- Contact form with server-side validation and notifications
+- Profile page for authenticated users
+- Localization: English and Russian
+- MongoDB for persistence
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create an `.env.local` file based on `.env.example` and provide the values:
+
+```
+MONGODB_URI=<your_mongodb_credentials>
+NEXTAUTH_SECRET=<optional_nextauth_secret>
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Build and start for production:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Scripts
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- `npm run dev` – run the development server
+- `npm run build` – create an optimized production build
+- `npm start` – start the production server
+- `npm run prettier:fix` – format files with Prettier
 
-## Learn More
+## Technologies
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [NextAuth](https://next-auth.js.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The project can be deployed to [Vercel](https://vercel.com/). Update the **Live Demo** link above with the URL of your deployed application so others can easily try it out.
