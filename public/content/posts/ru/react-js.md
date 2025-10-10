@@ -203,6 +203,43 @@ return ReactDOM.createPortal(
 ### Error Boundary
 - Реализуются только на классовых компонентах (componentDidCatch и getDerivedStateFromError).
 
+### Render props
+- Используются, когда у нас есть общий компонент (например, TransferList), и мы хотим передать в него кастомный UI.
+- Если children уже занят или не подходит, можно передать функцию через проп, например:
+```typescript jsx
+<TransferList
+  renderLabel={(member) => <User {...member} />}
+/>
+```
+### Race condition useEffect
+- При работе с асинхронными эффектами (например, fetch) возможна ситуация, когда быстрый второй запрос "перебивает" первый. Это и есть race condition.
+- Решение — использовать AbortController для отмены устаревших запросов:
+```typescript jsx
+function Search() {
+  const [query, setQuery] = useState("");
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    (async () => {
+      try {
+        const res = await fetch(`/api/search?q=${query}`, {
+          signal: controller.signal,
+        });
+        setData(await res.json());
+      } catch (e) {
+        if (e.name !== "AbortError") console.error(e);
+      }
+    })();
+
+    return () => controller.abort();
+  }, [query]);
+
+  // ...
+}
+```
+
 # Важные библиотеки, связанные с React
 
 ## React-router-dom V6
