@@ -17,7 +17,7 @@ isFeatured: true
 
 Abstraction allows us to focus on **what** an object does rather than **how** it does it.
 
-#### In TypeScript, **abstract classes** are implemented with the `abstract` keyword. <span id="abstract-class"/>
+#### In TypeScript, **abstract classes** are implemented with the `abstract` keyword. <div id="abstract-class"/>
 
 You cannot create an instance from an abstract class.
 In Revuud, for example, `User` is an abstract class, while `Talent` and `Admin` are concrete implementations.
@@ -54,7 +54,7 @@ The goal is to avoid duplicating code and save memory by building on existing fu
 It is the ability to call the same method on different objects, and each object responds differently.
 To achieve this, polymorphism relies on inheritance.
 
-### Example demonstrating all 4 concepts <span id="abstract-class-example"/>
+### Example demonstrating all 4 concepts <div id="abstract-class-example"/>
 
 ```typescript
 abstract class User {

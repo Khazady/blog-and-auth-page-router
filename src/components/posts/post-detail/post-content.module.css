@@ -35,6 +35,16 @@
   height: auto;
 }
 
+.content .highlight {
+  background-color: var(--brand-color-900);
+  border-radius: 4px;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.content .link {
+  text-decoration: underline;
+}
+
 @media (min-width: 768px) {
   .content {
     padding: var(--size-8);

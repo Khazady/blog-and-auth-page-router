@@ -112,7 +112,7 @@ Example:
      res.send("Logged in");
    });
    ```
-3. CSP (Content Security Policy) <span id="content-security-policy"/>
+3. CSP (Content Security Policy) <div id="content-security-policy"/>
    - an HTTP header that tells the browser "which scripts, styles, images and other resources can be loaded and executed on this site"
    - configured on the static file server (e.g. Nginx); in Next.js—in `next.config.js`
 

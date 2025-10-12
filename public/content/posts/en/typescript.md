@@ -71,7 +71,7 @@ class SomePoint2 implements Point2 {
 }
 ```
 
-### Declaration merging <span id="declaration-merging"/>
+### Declaration merging <div id="declaration-merging"/>
 
 > Repeated interface declarations are merged
 

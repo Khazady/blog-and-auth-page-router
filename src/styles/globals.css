@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overscroll-behavior: none;
+}
+
 body {
   --color-grey-50: hsl(265, 55%, 96%);
   --color-grey-100: hsl(265, 19%, 88%);
@@ -24,6 +28,8 @@ body {
   --color-primary-500: #5a097a;
   --color-primary-600: #480264;
   --color-primary-700: #3d0264;
+
+  --brand-color-900: #fff59d;
 
   --color-success-100: #a2f0bc;
   --color-success-500: #12bd4b;
@@ -61,4 +67,8 @@ a {
 button {
   font: inherit;
   cursor: pointer;
+}
+
+div[id] {
+  scroll-margin-top: 5rem;
 }

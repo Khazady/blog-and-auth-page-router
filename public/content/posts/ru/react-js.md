@@ -57,11 +57,11 @@ element.addEventListener("click", function () {});
 - Подходит для небольшого глобального состояния; для сложных сценариев используют менеджеры состояния (Redux, Zustand, React Query и т.д.)
 
 
-### useCallback <span id="useCallback"></span>
+### useCallback <div id="useCallback"></div>
 
 1. Используется вместе с [React.memo](#React.memo) для функций, передаваемых в дочерний компонент, чтобы между рендерами родителя сохранялась та же ссылка.
 
-### useMemo <span id="useMemo"></span>
+### useMemo <div id="useMemo"></div>
 
 Сценарии использования:
 
@@ -131,7 +131,7 @@ const UserName = React.memo((props) => {
 });
 ```
 
-- <span id="React.memo" style="color:red;font-size:25px;">!!!</span> React.memo / PureComponent делают **только поверхностную проверку** (примитивы и ссылки).
+- <div id="React.memo" style="color:red;font-size:25px;">!!!</div> React.memo / PureComponent делают **только поверхностную проверку** (примитивы и ссылки).
 - Когда в пропс передан не примитивный тип, дополнительно к React.memo
   данные нужно обернуть в [useMemo](#useMemo) / [useCallback](#useCallback).
 - Использование этих хуков сохраняет ссылки на функции и объекты между рендерами, предотвращая лишние перерисовки.

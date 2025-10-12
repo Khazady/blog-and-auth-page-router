@@ -2,6 +2,7 @@ import LanguageSwitcher from "@/components/ui/language-switcher";
 import { PostType } from "@/lib/types/post";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
@@ -17,6 +18,29 @@ SyntaxHighlighter.registerLanguage("typescript", ts); // this optimizes weight o
 type PropsType = {
   post: PostType;
 };
+
+const highlightByAnchorId = ({
+  href,
+  scroll,
+}: {
+  href: string;
+  scroll?: boolean;
+}) => {
+  if (!href || !href.startsWith("#")) return;
+
+  const targetId = decodeURIComponent(href.slice(1));
+  const targetElement = document.getElementById(targetId);
+  if (!targetElement) return;
+
+  const parentElement = targetElement.closest("li, h3");
+  const highlightTarget =
+    parentElement instanceof HTMLElement ? parentElement : targetElement;
+
+  highlightTarget.classList.add(styles.highlight);
+
+  scroll &&
+    highlightTarget.scrollIntoView({ block: "center", behavior: "smooth" });
+};
 const blockquoteStyles = {
   margin: 0,
   padding: "1em",
@@ -26,6 +50,19 @@ const blockquoteStyles = {
 export default function PostContent(props: PropsType) {
   let { post } = props;
   const imagePath = `/images/posts/${post.slug}/${post.image}`;
+
+  const handleLinkClick = async (event: React.MouseEvent, href: string) => {
+    //clean previous highlights
+    document
+      .querySelectorAll(`.${styles.highlight}`)
+      .forEach((el) => el.classList.remove(styles.highlight));
+
+    highlightByAnchorId({ href });
+  };
+
+  useEffect(() => {
+    highlightByAnchorId({ href: window.location.hash });
+  }, [post.slug]);
 
   return (
     <article className={styles.content}>
@@ -50,7 +87,18 @@ export default function PostContent(props: PropsType) {
             <blockquote style={blockquoteStyles}>{children}</blockquote>
           ),
           a: ({ children, href }) => {
-            return href && <Link href={href}>{children}</Link>;
+            return (
+              href && (
+                <Link
+                  className={styles.link}
+                  onClick={(event) => handleLinkClick(event, href)}
+                  scroll={false}
+                  href={href}
+                >
+                  {children}
+                </Link>
+              )
+            );
           },
           code: (code) => {
             const { className, children } = code;

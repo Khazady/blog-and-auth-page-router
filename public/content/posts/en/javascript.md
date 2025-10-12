@@ -171,14 +171,14 @@ const originalObj = { a: 1, b: { c: 2 } };
 const clone = JSON.parse(JSON.stringify(originalObj));
 ```
 
-> - <span style="color:red;font-size:25px;">!!!</span> JSON format doesn't support methods, so you can't copy methods in such way.
+> - <div style="color:red;font-size:25px;">!!!</div> JSON format doesn't support methods, so you can't copy methods in such way.
 > - It's also expensive in computational costs
 >
 > 2. Recursive copying implementation
 > 3. `lodash.deepClone`
 > 4. `window.structuredClone` (modern browsers only)
 >
-> - <span style="color:red;font-size:25px;">!!!</span> structuredClone can't copy methods
+> - <div style="color:red;font-size:25px;">!!!</div> structuredClone can't copy methods
 
 ## Functions
 
@@ -188,7 +188,7 @@ const clone = JSON.parse(JSON.stringify(originalObj));
 
 Напр. дочерняя функция запомнит параметр родительской функции
 
-<span id="closure"></span>
+<div id="closure"></div>
 
 ```js
 const maxLengthCreator = (maxLength) => {
@@ -321,7 +321,7 @@ logD(); // 2
 
 **Step 1.** **Evaluate Script**
 
-<span style='background-color: yellow'>Synchronously execute the script as though it were a function body. Run until the Call Stack is empty.</span>
+<div style='background-color: yellow'>Synchronously execute the script as though it were a function body. Run until the Call Stack is empty.</div>
 
 1. logA > console.log(A) // call stack
 2. logB // task queue
@@ -330,7 +330,7 @@ logD(); // 2
 
 **Step 2. Run all Microtasks**
 
-<span style='background-color: yellow'>Select the oldest Microtask from the Microtask Queue. Run it until the Call Stack is empty. Repeat until the Microtask Queue is empty.</span>
+<div style='background-color: yellow'>Select the oldest Microtask from the Microtask Queue. Run it until the Call Stack is empty. Repeat until the Microtask Queue is empty.</div>
 
 5. logC// from micro to call stack > > console.log(C) // call stack
 6. logA // microtask queue (.then chain)
@@ -338,11 +338,11 @@ logD(); // 2
 
 **Step 3. Rerender**
 
-<span style='background-color: yellow'>Rerender the UI (This step only applies to browsers, not NodeJS).</span>
+<div style='background-color: yellow'>Rerender the UI (This step only applies to browsers, not NodeJS).</div>
 
 **Step 4. Run a Task**
 
-<span style='background-color: yellow'>Select the oldest Task from the Task Queue. Run it until the Call Stack is empty.</span>
+<div style='background-color: yellow'>Select the oldest Task from the Task Queue. Run it until the Call Stack is empty.</div>
 
 8. timeoutWithPromise // call stack
 
@@ -496,7 +496,7 @@ console.log(memoizedAdd(2, 3)); // Складываем 2 и 3, результа
 console.log(memoizedAdd(2, 3)); // Берем из памяти 2,3, результат 5
 ```
 
-### Advanced, мемоизация с WeakMap/WeakSet <span id="weakmap-cache"/>
+### Advanced, мемоизация с WeakMap/WeakSet <div id="weakmap-cache"/>
 
 ```js
 const difficultCalculationsWithObject = (obj) => {

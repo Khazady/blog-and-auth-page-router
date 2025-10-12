@@ -41,7 +41,7 @@ DNS преобразует удобочитаемые доменные имен�
 
 ## Безопасность
 
-### CORS (Cross-Origin Resource Sharing) <span id="CORS" />
+### CORS (Cross-Origin Resource Sharing) <div id="CORS" />
 
 - это политика безопасности браузера, которая ограничивает запросы на другой домен.
 - если сервер не разрешает домен клиента в заголовках, браузер заблокирует ответ.
@@ -56,7 +56,7 @@ DNS преобразует удобочитаемые доменные имен�
 - Content-Type: application/x-www-form-urlencoded, multipart/form-data или text/plain;
 - без кастомных заголовков (например, Authorization, X-My-Header).
 
-### CSRF (XSRF) (Cross-Site Request Forgery) <span id="CSRF" />
+### CSRF (XSRF) (Cross-Site Request Forgery) <div id="CSRF" />
 Атака: злоумышленник заставляет браузер отправить запрос на доверенный сайт с твоими **cookie**.  
 Пример:
 - во вкладке 1 ты залогинен в `bank.com`
@@ -80,7 +80,7 @@ DNS преобразует удобочитаемые доменные имен�
     - если запрос пришёл не с `bank.com`, он блокируется.
 
 
-### XSS (Cross-Site Scripting) <span id="XSS" />
+### XSS (Cross-Site Scripting) <div id="XSS" />
 - внедрение вредоносных скриптов в сайт через инпуты, параметры урла
 **Защита**
 1. Экранирование HTML (React делает автоматически, если не выключить через prop `dangerouslySetInnerHTML`)
@@ -100,7 +100,7 @@ DNS преобразует удобочитаемые доменные имен�
      res.send('Logged in');
    });
    ```
-3. CSP (Content Security Policy) <span id="content-security-policy"/>
+3. CSP (Content Security Policy) <div id="content-security-policy"/>
    - это HTTP-заголовок, который говорит браузеру:
      "какие скрипты, стили, картинки и другие ресурсы можно загружать и выполнять на этом сайте"
    - выставляется на File Static Server-е (напр. Nginx), в Next.js - в next.config.js
@@ -115,7 +115,7 @@ DNS преобразует удобочитаемые доменные имен�
 - Никто не может подменить ответы сервера незаметно.
 - Браузер проверяет, что сайт настоящий (через сертификат).
 
-### MITM - Атака «человек посередине» <span id="MITM"/>
+### MITM - Атака «человек посередине» <div id="MITM"/>
 Злоумышленник встраивается между браузером и сервером, читает или подменяет данные.
 Часто встречается в открытых Wi-Fi или при HTTP (или при `ws://`).
 

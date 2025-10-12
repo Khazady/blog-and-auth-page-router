@@ -56,11 +56,11 @@ element.addEventListener("click", function () {});
 - Needed to avoid **props drilling**, when state has to be passed through props at every level even where it isn’t needed.
 - Suitable for small global state; for complex scenarios use state managers (Redux, Zustand, React Query, etc.)
 
-### useCallback <span id="useCallback"></span>
+### useCallback <div id="useCallback"></div>
 
 1. Used with [React.memo](#React.memo) for functions passed to a child component so the same reference is kept between parent renders.
 
-### useMemo <span id="useMemo"></span>
+### useMemo <div id="useMemo"></div>
 
 Use cases:
 
@@ -130,7 +130,7 @@ const UserName = React.memo((props) => {
 });
 ```
 
-- <span id="React.memo" style="color:red;font-size:25px;">!!!</span> React.memo / PureComponent do **only a shallow comparison** (primitives and references).
+- <div id="React.memo" style="color:red;font-size:25px;">!!!</div> React.memo / PureComponent do **only a shallow comparison** (primitives and references).
 - When a non-primitive type is passed via props, in addition to React.memo
   wrap the data in [useMemo](#useMemo) / [useCallback](#useCallback).
 - Using these hooks preserves references to functions and objects between renders, preventing extra re-renders.
