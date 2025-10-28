@@ -44,7 +44,7 @@ element.addEventListener("click", function () {});
 - Локальное состояние
 - Сравнивает предыдущие значения с новыми и при необходимости вызывает повторный рендер тех частей UI, которые от него зависят (в отличие от обычной переменной, которую мы вывели бы в JSX и изменили в обработчике события)
 - правильное изменение состояния `setState(prev => prev + 1)`
-- `useState(() => compute())` — можно передать функцию в качестве начального значения, чтобы вычислить его один раз, а не при каждом рендере
+- `useState(() => getFromLocalStorage/Cookies/computeHeavyCalculation())` — можно передать функцию в качестве начального значения, чтобы вычислить его один раз, а не при каждом рендере
 
 ### useRef
 
@@ -54,7 +54,31 @@ element.addEventListener("click", function () {});
 ### useContext
 
 - Нужен для избежания **props drilling**, когда приходится пробрасывать состояние через пропсы каждого уровня, даже там, где оно не нужно
-- Подходит для небольшого глобального состояния; для сложных сценариев используют менеджеры состояния (Redux, Zustand, React Query и т.д.)
+- Подходит для небольшого <b>клиентского, не серверного!</b> глобального состояния, которое НЕЧАСТО обновляется (напр. Тема, язык, данные юзера); для сложных сценариев используют менеджеры состояния (Redux, Zustand, React Query и т.д.)
+- <div id="React.memo" style="color:red;font-size:25px;">!!!</div> В первую очередь хук про ТРАНСПОРТИНГ СОСТОЯНИЯ, А НЕ ПРО STATE.
+- <div id="React.memo" style="color:red;font-size:25px;">!!!</div> Перерендеривает всех кто читает данный контекст useContext(context), при изменении стейта. (ну и потомков, как обычный эффект от собственного ререндера)
+
+### useReducer
+
+- Почти `useState`, но изменения проходят через редьюсер и `dispatch`.
+- Удобен, когда локальное состояние со временем разрастается или те же редьюсеры хочется переиспользовать в контексте
+
+```javascript
+const CounterContext = createContext();
+const reducer = (state, action) =>
+  action.type === "inc" ? { count: state.count + 1 } : state;
+
+function CounterProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
+  return (
+    <CounterContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CounterContext.Provider>
+  );
+}
+```
+
+- Пара `useReducer + useContext` vs `Global state manager library` TODO!
 
 
 ### useCallback <div id="useCallback"></div>

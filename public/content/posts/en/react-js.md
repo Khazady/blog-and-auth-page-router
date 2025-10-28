@@ -44,7 +44,7 @@ element.addEventListener("click", function () {});
 - Local state.
 - Compares previous values with new ones and, when necessary, re-renders the parts of the UI that depend on it (unlike a regular variable rendered in JSX and changed in an event handler).
 - Correct state update: `setState(prev => prev + 1)`
-- `useState(() => compute())` — pass a function as the initial value to compute it once instead of on every render.
+- `useState(() => getFromLocalStorage/Cookies/computeHeavyCalculation())` — pass a function as the initial value to compute it once instead of on every render.
 
 ### useRef
 
@@ -53,8 +53,33 @@ element.addEventListener("click", function () {});
 
 ### useContext
 
-- Needed to avoid **props drilling**, when state has to be passed through props at every level even where it isn’t needed.
-- Suitable for small global state; for complex scenarios use state managers (Redux, Zustand, React Query, etc.)
+- Needed to avoid **props drilling**, when state has to be passed through props at every level, even where it isn’t needed.
+- Suitable for small <b>client, not server!</b> global state that does NOT update frequently (e.g., theme, language, user data); for complex scenarios use state managers (Redux, Zustand, React Query, etc.)
+- <div id="React.memo" style="color:red;font-size:25px;">!!!</div> Primarily a hook for TRANSPORTING STATE, NOT FOR STATE ITSELF.
+- <div id="React.memo" style="color:red;font-size:25px;">!!!</div> Re-renders everyone who reads this context via useContext(context) when the state changes (and their descendants, as a normal effect of their own re-render).
+
+### useReducer
+
+- Almost `useState`, but updates go through a reducer function and a `dispatch`.
+- Handy when local state grows in size or when you want to reuse the same reducer logic inside context.
+- Tiny context example:
+
+```javascript
+const CounterContext = createContext();
+const reducer = (state, action) =>
+  action.type === "inc" ? { count: state.count + 1 } : state;
+
+function CounterProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
+  return (
+    <CounterContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CounterContext.Provider>
+  );
+}
+```
+
+- The `useReducer + useContext` vs `Global state manager library` TODO!
 
 ### useCallback <div id="useCallback"></div>
 
