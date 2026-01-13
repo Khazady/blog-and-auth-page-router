@@ -10,6 +10,7 @@ date: "2024-02-22"
 
 ### 1. **Pre-rendering pages on the server side:**
 
+- Next can fetch data on the server (SSR/SSG) and return ready HTML, so on the first visit the content is visible without a client loader. But if data loads on the client or navigation happens inside the app, a loader is still possible.
 - This feature eliminates the **initial loading** state by rendering pages on the server side.  
    React components load data from the API only after they have been rendered, preventing issues such as flickering loaders.
 - Pre-rendering improves SEO, as search engine crawlers can access the page content.  
