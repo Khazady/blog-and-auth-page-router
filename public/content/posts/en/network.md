@@ -11,6 +11,7 @@ date: "2024-05-17"
 A REST API is an architectural style for client-server interaction. It uses standard HTTP methods to work with resources:
 
 - **GET** – retrieve data (for example, a list of users).
+- **HEAD** – same as GET but returns only headers (no body); useful to check if a resource exists, its size, or caching headers.
 - **POST** – create a new resource.
 - **PUT** – completely replace an existing resource.
 - **PATCH** – partially update a resource.
