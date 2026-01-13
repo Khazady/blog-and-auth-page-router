@@ -8,6 +8,14 @@ isFeatured: true
 
 ## Common
 
+## Browser JavaScript
+
+### Polyfills <div id="polyfills"></div>
+
+- Polyfills patch missing browser APIs (`fetch`, `Promise`, `Intl`, `ResizeObserver`) so your code behaves the same on legacy engines.
+- Supported browsers are defined via `browserslist`/`targets` — the build adapts to that list.
+- Polyfills cover missing APIs, not new syntax — syntax is handled by transpilation (Babel/SWC).
+
 ### Complex types of data
 
 #### Map - ассоциативный массив / словарь

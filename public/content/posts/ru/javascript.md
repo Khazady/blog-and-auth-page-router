@@ -8,6 +8,14 @@ isFeatured: true
 
 ## Common
 
+## Браузерный JavaScript
+
+### Полифилы <div id="polyfills"></div>
+
+- Полифилы добавляют в рантайме отсутствующие в браузере API (`fetch`, `Promise`, `Intl`, `ResizeObserver`), чтобы код работал одинаково на старых и новых движках.
+- Список поддерживаемых браузеров задаётся через `browserslist`/`targets` — сборка подстраивается под него.
+- Полифилы закрывают отсутствие API, а не нового синтаксиса — за синтаксис отвечает транспиляция (Babel/SWC).
+
 ### Complex types of data
 
 #### Map - ассоциативный массив / словарь
@@ -93,6 +101,42 @@ john = null; // перезаписываем ссылку на объект
 
 > тоже ключи только объекты и тоже удаляет из памяти
 > неиспользуемые в иных местах объекты
+
+### Array.prototype — минимальные реализации map и filter
+
+Простейший пример подключения пользовательских реализаций к прототипу
+массива. Такой подход полезен для понимания, как работают встроенные
+методы, но в боевом коде лучше полагаться на стандартные версии.
+
+```js
+if (!Array.prototype.myMap) {
+  Array.prototype.myMap = function myMap(callback, thisArg) {
+    const result = [];
+    for (let index = 0; index < this.length; index += 1) {
+      if (!Object.prototype.hasOwnProperty.call(this, index)) continue;
+      result.push(callback.call(thisArg, this[index], index, this));
+    }
+    return result;
+  };
+}
+
+if (!Array.prototype.myFilter) {
+  Array.prototype.myFilter = function myFilter(callback, thisArg) {
+    const result = [];
+    for (let index = 0; index < this.length; index += 1) {
+      if (!Object.prototype.hasOwnProperty.call(this, index)) continue;
+      if (callback.call(thisArg, this[index], index, this)) {
+        result.push(this[index]);
+      }
+    }
+    return result;
+  };
+}
+
+const source = [1, 2, 3];
+const mapped = source.myMap((value) => value * 2); // [2, 4, 6]
+const filtered = source.myFilter((value) => value > 1); // [2, 3]
+```
 
 ### Hoisting - поднятие
 
