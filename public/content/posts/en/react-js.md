@@ -203,6 +203,74 @@ function handleChange(e) {
 }
 ```
 
+### useSyncExternalStore
+
+- Subscribes a component to an external store (not managed by React) and returns a snapshot for JSX.
+- Requires two functions: `subscribe` (listen for changes) and `getSnapshot` (read the value).
+
+```javascript
+const offlineStore = {
+  getSnapshot: () => (navigator.onLine ? "online" : "offline"),
+  subscribe: (notify) => {
+    const handleStatusChange = () => notify();
+    window.addEventListener("online", handleStatusChange);
+    window.addEventListener("offline", handleStatusChange);
+    return () => {
+      window.removeEventListener("online", handleStatusChange);
+      window.removeEventListener("offline", handleStatusChange);
+    };
+  },
+};
+
+function OfflineBanner() {
+  const status = useSyncExternalStore(
+    offlineStore.subscribe,
+    offlineStore.getSnapshot,
+    offlineStore.getSnapshot,
+  );
+
+  if (status === "offline") {
+    return <div className="banner">Connection lost</div>;
+  }
+  return null;
+}
+```
+
+#### How it differs from useEventEffect (React 19.2)
+
+- `useSyncExternalStore` updates the UI: it returns a render value and re-renders on changes.
+- `useEventEffect` runs side effects on events and does not re-render the component.
+- If you need to show changes in the UI, use `useSyncExternalStore`. If you need a reaction without changing JSX, use `useEventEffect`.
+
+### useEventEffect (React 19.2)
+
+- Was: put `messageText` in `useEffect` deps, reattaching the `keydown` handler on every input change.
+- Was: leave deps empty, the handler sends only the initial value.
+- Now: `useEventEffect` attaches the handler once, but sends the current `messageText`.
+
+```javascript
+const [messageText, setMessageText] = useState("");
+
+const sendMessage = useEventEffect(() => {
+  if (!messageText.trim()) {
+    return;
+  }
+  sendMessageToServer(messageText);
+});
+
+useEffect(() => {
+  const onKeyDown = (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  window.addEventListener("keydown", onKeyDown);
+  return () => window.removeEventListener("keydown", onKeyDown);
+}, [sendMessage]);
+```
+
 ## What React doesn't include out of the box
 
 - Routing (React Router, Next.js)

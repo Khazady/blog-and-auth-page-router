@@ -203,6 +203,74 @@ function handleChange(e) {
 }
 ```
 
+### useSyncExternalStore
+
+- Подписывает компонент на «внешнее» (не управляемое React) хранилище и возвращает снимок для JSX.
+- Нужны две функции: `subscribe` (подписка на изменения) и `getSnapshot` (чтение значения).
+
+```javascript
+const offlineStore = {
+  getSnapshot: () => (navigator.onLine ? "online" : "offline"),
+  subscribe: (notify) => {
+    const handleStatusChange = () => notify();
+    window.addEventListener("online", handleStatusChange);
+    window.addEventListener("offline", handleStatusChange);
+    return () => {
+      window.removeEventListener("online", handleStatusChange);
+      window.removeEventListener("offline", handleStatusChange);
+    };
+  },
+};
+
+function OfflineBanner() {
+  const status = useSyncExternalStore(
+    offlineStore.subscribe,
+    offlineStore.getSnapshot,
+    offlineStore.getSnapshot
+  );
+
+  if (status === "offline") {
+    return <div className="banner">Соединение потеряно</div>;
+  }
+  return null;
+}
+```
+
+#### Чем отличается от useEventEffect (React 19.2)
+
+- `useSyncExternalStore` обновляет UI: возвращает значение для рендера и вызывает повторный рендер при изменениях.
+- `useEventEffect` выполняет побочные эффекты по событию и не перерисовывает компонент.
+- Если нужно показать изменения в интерфейсе — `useSyncExternalStore`, если нужна реакция без изменения JSX — `useEventEffect`.
+
+### useEventEffect (React 19.2)
+
+- Было: кладём `messageText` в зависимости `useEffect` — при каждом вводе снимаем и навешиваем обработчик `keydown` заново.
+- Было: оставляем зависимости пустыми — обработчик отправляет только старое значение (например, самое первое).
+- Стало: `useEventEffect` — обработчик `keydown` вешается один раз, а при нажатии отправляется текущее `messageText`.
+
+```javascript
+const [messageText, setMessageText] = useState("");
+
+const sendMessage = useEventEffect(() => {
+  if (!messageText.trim()) {
+    return;
+  }
+  sendMessageToServer(messageText);
+});
+
+useEffect(() => {
+  const onKeyDown = (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  window.addEventListener("keydown", onKeyDown);
+  return () => window.removeEventListener("keydown", onKeyDown);
+}, [sendMessage]);
+```
+
 ## Чего нет в React из коробки
 
 - Маршрутизация (React Router, Next.js)
