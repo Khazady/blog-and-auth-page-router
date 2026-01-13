@@ -37,10 +37,22 @@ With PATCH you can send only the fields you want to update.
 
 A Content Delivery Network is a set of servers distributed around the world that cache and serve static content (images, styles, JS, video, etc.).
 
-## DNS
+## DNS <div id="DNS" />
 
 DNS converts human-readable domain names into IP addresses.  
 Example: `openai.com` → `104.18.12.123`
+
+## TCP <div id="TCP" />
+
+TCP is a way to send data so it arrives intact and in the correct order.
+- First the client and server agree to open a connection: the client asks, the server confirms, the client confirms back.
+- After that, data can be sent reliably and in order.
+
+## TLS <div id="TLS" />
+
+TLS is a "secure envelope" for data: it encrypts all traffic between the browser and server.
+- Simply: **HTTPS = HTTP + encryption via TLS**.
+- At the start, the browser checks the site's certificate and agrees on encryption keys.
 
 ## Security
 
@@ -141,11 +153,6 @@ An attacker inserts themselves between the browser and server, reading or modify
    - another header like CSP
    - also configured on the static file server (e.g. Nginx); in Next.js—in `next.config.js`
 
-## After entering a URL in the address bar
+## Browser and rendering
 
-1. The browser uses DNS to obtain the domain’s IP address.
-2. If HTTPS → TLS handshake (negotiate encryption, verify certificate).
-3. Request to the server → HTML is returned.
-4. CSS, JS, and images are loaded.
-5. DOM and CSSOM are built → layout → paint.
-6. JS makes the page interactive (hydration).
+A short explanation of how the browser builds a page from HTML/CSS is in a separate note: [Browser](/posts/browser).
